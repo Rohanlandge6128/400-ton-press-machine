@@ -1,0 +1,389 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f5f8fc;
+    color: #102a56;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 28px;
+    background: #ffffff;
+    border-bottom: 1px solid #dce5f0;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+}
+
+.brand {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+}
+
+.back {
+    font-size: 50px;
+    color: #1877e8;
+}
+
+.topbar h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.topbar p {
+    margin: 5px 0 0;
+    color: #536b8e;
+    font-size: 17px;
+}
+
+.qr-btn {
+    border: 1px solid #bcd5f7;
+    background: #ffffff;
+    color: #0875e9;
+    border-radius: 14px;
+    font-size: 31px;
+    width: 56px;
+    height: 56px;
+    cursor: pointer;
+}
+
+main {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px 22px 100px;
+}
+
+.card {
+    background: #ffffff;
+    border: 1px solid #d7e3f1;
+    border-radius: 13px;
+    padding: 20px;
+    box-shadow: 0 2px 8px #183b6510;
+    margin-bottom: 16px;
+}
+
+.hero {
+    display: grid;
+    grid-template-columns: 290px 1fr;
+    gap: 16px;
+}
+
+.machine-photo {
+    min-height: 190px;
+    border-radius: 12px;
+    background: linear-gradient(
+        145deg,
+        #dce8f5,
+        #aebed0
+    );
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-placeholder {
+    font-size: 38px;
+    font-weight: bold;
+    text-align: center;
+    color: #243a52;
+}
+
+.image-placeholder small {
+    display: block;
+    font-size: 13px;
+    font-weight: normal;
+    margin-top: 8px;
+    color: #536b8e;
+}
+
+.status-box {
+    background: #effbf5;
+    border-radius: 12px;
+    padding: 28px;
+}
+
+.status-line {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    color: #536b8e;
+    font-size: 18px;
+}
+
+.dot {
+    width: 17px;
+    height: 17px;
+    background: #13a35b;
+    border-radius: 50%;
+}
+
+.status-box strong {
+    display: block;
+    color: #169b56;
+    font-size: 35px;
+    margin: 8px 0 25px;
+}
+
+.location {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 16px;
+}
+
+h2 {
+    font-size: 22px;
+    margin: 0 0 20px;
+    color: #0d2c5b;
+}
+
+.rows > div,
+.safety-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 9px 0;
+    border-bottom: 1px solid #edf1f6;
+    color: #536b8e;
+}
+
+.rows b,
+.safety-row b {
+    color: #102a56;
+    text-align: right;
+}
+
+.maintenance-dates {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.maintenance-dates small,
+.contact small {
+    display: block;
+    color: #536b8e;
+    margin-bottom: 8px;
+}
+
+.progress {
+    height: 12px;
+    background: #e5edf7;
+    border-radius: 10px;
+    margin-top: 25px;
+}
+
+.progress span {
+    display: block;
+    width: 60%;
+    height: 100%;
+    border-radius: 10px;
+    background: #287fe9;
+}
+
+.progress-label {
+    text-align: right;
+    color: #536b8e;
+    margin: 8px;
+}
+
+.info-box {
+    background: #eef6ff;
+    border-radius: 10px;
+    padding: 13px;
+    color: #0875e9;
+}
+
+.info-box small {
+    color: #536b8e;
+}
+
+.ops-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.ops-grid div {
+    background: #f1f5fa;
+    border-radius: 9px;
+    padding: 16px;
+}
+
+.ops-grid span {
+    display: block;
+    color: #536b8e;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.doc {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #ffffff;
+    border: 1px solid #dbe6f2;
+    width: 100%;
+    border-radius: 9px;
+    padding: 13px;
+    margin-top: 13px;
+    text-align: left;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.doc small {
+    display: block;
+    color: #536b8e;
+    margin-top: 5px;
+}
+
+.pdf,
+.doc-icon {
+    padding: 10px;
+    border-radius: 7px;
+    background: #e9f1ff;
+    color: #1479e9;
+    font-weight: bold;
+}
+
+.pdf {
+    background: #ffe6e8;
+    color: #e52e3d;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.contact b {
+    display: block;
+}
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border-top: 1px solid #dbe4ef;
+    display: flex;
+    justify-content: center;
+    z-index: 10;
+}
+
+.bottom-nav button {
+    border: 0;
+    background: transparent;
+    color: #536b8e;
+    padding: 12px 45px;
+    font-size: 20px;
+}
+
+.bottom-nav span {
+    display: block;
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+.bottom-nav .active {
+    background: #1877e8;
+    color: #ffffff;
+    border-radius: 12px;
+    margin: 7px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #0008;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-box {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 28px;
+    text-align: center;
+    max-width: 360px;
+}
+
+.modal-box canvas {
+    max-width: 100%;
+}
+
+.close {
+    float: right;
+    border: 0;
+    background: none;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.action {
+    border: 0;
+    background: #1877e8;
+    color: #ffffff;
+    border-radius: 8px;
+    padding: 12px 25px;
+    cursor: pointer;
+}
+
+@media (max-width: 800px) {
+
+    .topbar h1 {
+        font-size: 19px;
+    }
+
+    .topbar p {
+        font-size: 14px;
+    }
+
+    .hero,
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    main {
+        padding: 12px 12px 90px;
+    }
+
+    .bottom-nav button {
+        padding: 10px 12px;
+        font-size: 17px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    .topbar {
+        padding: 14px 12px;
+    }
+
+}
