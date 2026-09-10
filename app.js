@@ -1,171 +1,128 @@
 /* =========================================================
-   PPPL VISUAL FACTORY
-   400 TON PRESS MACHINE DASHBOARD
-   app.js
-   ========================================================= */
-
-
-/* =========================================================
    SIDEBAR
-   ========================================================= */
+========================================================= */
 
 function toggleSidebar() {
 
-    const sidebar = document.getElementById("sidebar");
+    const isMobile = window.innerWidth <= 800;
 
-    if (!sidebar) {
-        return;
+    if (isMobile) {
+
+        document.body.classList.toggle("mobile-menu-open");
+
+    } else {
+
+        document.body.classList.toggle("sidebar-collapsed");
+
     }
-
-    sidebar.classList.toggle("open");
 
 }
 
 
 /* =========================================================
    QR CODE
-   ========================================================= */
+========================================================= */
 
 function showQR() {
 
     const modal = document.getElementById("qrModal");
-
     const canvas = document.getElementById("qrCanvas");
 
     if (!modal || !canvas) {
         return;
     }
 
-
     modal.classList.add("show");
 
-
     /*
-        window.location.href automatically uses the
-        current dashboard URL.
-
-        This means when the dashboard is hosted on
-        GitHub Pages, the QR will contain the public
-        GitHub Pages URL.
+        IMPORTANT:
+        When hosted on GitHub Pages, this will automatically
+        generate a QR containing the public dashboard URL.
     */
 
-    if (typeof QRCode === "undefined") {
-
-        console.error("QR Code library not loaded.");
-
-        return;
-
-    }
-
-
     QRCode.toCanvas(
-
         canvas,
-
         window.location.href,
-
         {
             width: 260,
-            margin: 2
+            margin: 2,
+            errorCorrectionLevel: "H"
         },
-
         function(error) {
 
             if (error) {
-
-                console.error(
-                    "QR generation error:",
-                    error
-                );
-
+                console.error("QR generation error:", error);
             }
 
         }
-
     );
-
 }
 
 
 /* =========================================================
    CLOSE QR MODAL
-   ========================================================= */
+========================================================= */
 
 function hideModal() {
 
-    const modal =
-        document.getElementById("qrModal");
+    const modal = document.getElementById("qrModal");
 
-    if (!modal) {
-        return;
+    if (modal) {
+        modal.classList.remove("show");
     }
-
-    modal.classList.remove("show");
 
 }
 
 
 /* =========================================================
    CLOSE MODAL WHEN CLICKING OUTSIDE
-   ========================================================= */
+========================================================= */
 
-document.addEventListener(
-    "click",
-    function(event) {
+document.addEventListener("click", function(event) {
 
-        const modal =
-            document.getElementById("qrModal");
+    const modal = document.getElementById("qrModal");
 
-        if (!modal) {
-            return;
-        }
+    if (!modal) {
+        return;
+    }
 
+    if (
+        modal.classList.contains("show") &&
+        event.target === modal
+    ) {
 
-        if (
-            event.target === modal
-        ) {
-
-            hideModal();
-
-        }
+        hideModal();
 
     }
-);
+
+});
 
 
 /* =========================================================
    COPY DASHBOARD URL
-   ========================================================= */
+========================================================= */
 
 function copyPageURL() {
 
-    const url =
-        window.location.href;
+    const url = window.location.href;
 
+    if (navigator.clipboard) {
 
-    if (
-        navigator.clipboard &&
-        window.isSecureContext
-    ) {
-
-        navigator.clipboard
-            .writeText(url)
+        navigator.clipboard.writeText(url)
             .then(function() {
 
-                showTemporaryMessage(
-                    "Dashboard URL copied!"
-                );
+                showNotification("Dashboard URL copied!");
 
             })
             .catch(function() {
 
-                fallbackCopyURL(url);
+                fallbackCopy(url);
 
             });
 
     } else {
 
-        fallbackCopyURL(url);
+        fallbackCopy(url);
 
     }
 
@@ -173,307 +130,112 @@ function copyPageURL() {
 
 
 /* =========================================================
-   FALLBACK COPY METHOD
-   ========================================================= */
+   FALLBACK COPY
+========================================================= */
 
-function fallbackCopyURL(url) {
+function fallbackCopy(text) {
 
-    const textArea =
-        document.createElement("textarea");
+    const textArea = document.createElement("textarea");
 
+    textArea.value = text;
 
-    textArea.value = url;
+    textArea.style.position = "fixed";
+    textArea.style.left = "-9999px";
 
-    textArea.style.position =
-        "fixed";
-
-    textArea.style.left =
-        "-999999px";
-
-
-    document.body.appendChild(
-        textArea
-    );
-
-
-    textArea.focus();
+    document.body.appendChild(textArea);
 
     textArea.select();
-
 
     try {
 
         document.execCommand("copy");
 
-        showTemporaryMessage(
-            "Dashboard URL copied!"
-        );
+        showNotification("Dashboard URL copied!");
 
     } catch (error) {
 
-        alert(
-            "Copy failed. Please copy the URL from the browser."
-        );
+        alert("Please copy this URL manually:\n\n" + text);
 
     }
 
-
-    document.body.removeChild(
-        textArea
-    );
+    document.body.removeChild(textArea);
 
 }
 
 
 /* =========================================================
-   TEMPORARY MESSAGE
-   ========================================================= */
+   NOTIFICATION
+========================================================= */
 
-function showTemporaryMessage(message) {
+function showNotification(message) {
 
-    const existing =
-        document.getElementById(
-            "temporaryMessage"
-        );
+    const notification = document.createElement("div");
 
+    notification.textContent = message;
 
-    if (existing) {
+    notification.style.position = "fixed";
+    notification.style.bottom = "90px";
+    notification.style.left = "50%";
+    notification.style.transform = "translateX(-50%)";
 
-        existing.remove();
+    notification.style.background = "#005C98";
+    notification.style.color = "#FFFFFF";
 
-    }
+    notification.style.padding = "11px 20px";
 
+    notification.style.borderRadius = "6px";
 
-    const notification =
-        document.createElement("div");
+    notification.style.fontSize = "13px";
+    notification.style.fontWeight = "600";
 
-
-    notification.id =
-        "temporaryMessage";
-
-
-    notification.textContent =
-        message;
-
-
-    notification.style.position =
-        "fixed";
-
-
-    notification.style.left =
-        "50%";
-
-
-    notification.style.bottom =
-        "30px";
-
-
-    notification.style.transform =
-        "translateX(-50%)";
-
-
-    notification.style.background =
-        "#005C98";
-
-
-    notification.style.color =
-        "#ffffff";
-
-
-    notification.style.padding =
-        "12px 20px";
-
-
-    notification.style.borderRadius =
-        "7px";
-
-
-    notification.style.fontSize =
-        "14px";
-
-
-    notification.style.fontWeight =
-        "600";
-
-
-    notification.style.zIndex =
-        "5000";
-
+    notification.style.zIndex = "3000";
 
     notification.style.boxShadow =
-        "0 5px 20px rgba(0,0,0,0.25)";
+        "0 4px 15px rgba(0,0,0,0.25)";
 
+    document.body.appendChild(notification);
 
-    document.body.appendChild(
-        notification
-    );
+    setTimeout(function() {
 
+        notification.remove();
 
-    setTimeout(
-        function() {
-
-            notification.remove();
-
-        },
-        2200
-    );
+    }, 2200);
 
 }
 
 
 /* =========================================================
    MACHINE IMAGE FALLBACK
-   ========================================================= */
+========================================================= */
 
-function showMachinePlaceholder() {
+function setupMachineImage() {
 
-    const image =
-        document.querySelector(
-            ".machine-photo"
-        );
+    const image = document.getElementById("machineImage");
+    const fallback = document.getElementById("imageFallback");
 
-
-    const placeholder =
-        document.getElementById(
-            "machinePlaceholder"
-        );
-
-
-    if (image) {
-
-        image.style.display =
-            "none";
-
+    if (!image || !fallback) {
+        return;
     }
 
+    image.addEventListener("error", function() {
 
-    if (placeholder) {
+        image.style.display = "none";
+        fallback.style.display = "flex";
 
-        placeholder.style.display =
-            "flex";
-
-    }
+    });
 
 }
 
 
 /* =========================================================
-   INITIAL MACHINE IMAGE CHECK
-   ========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
-        const image =
-            document.querySelector(
-                ".machine-photo"
-            );
-
-
-        const placeholder =
-            document.getElementById(
-                "machinePlaceholder"
-            );
-
-
-        if (!image) {
-            return;
-        }
-
-
-        /*
-            If the actual machine image exists,
-            hide the placeholder.
-        */
-
-        image.addEventListener(
-            "load",
-            function() {
-
-                image.style.display =
-                    "block";
-
-
-                if (placeholder) {
-
-                    placeholder.style.display =
-                        "none";
-
-                }
-
-            }
-        );
-
-
-        /*
-            If image doesn't exist,
-            show placeholder.
-        */
-
-        image.addEventListener(
-            "error",
-            function() {
-
-                showMachinePlaceholder();
-
-            }
-        );
-
-
-        /*
-            In case the image is already cached.
-        */
-
-        if (image.complete) {
-
-            if (image.naturalWidth === 0) {
-
-                showMachinePlaceholder();
-
-            } else {
-
-                image.style.display =
-                    "block";
-
-
-                if (placeholder) {
-
-                    placeholder.style.display =
-                        "none";
-
-                }
-
-            }
-
-        }
-
-    }
-);
-
-
-/* =========================================================
    REPORT MACHINE ISSUE
-   ========================================================= */
+========================================================= */
 
 function reportIssue() {
 
-    /*
-        This is currently only a placeholder.
-
-        Later we can connect this button to:
-
-        - WhatsApp
-        - Email
-        - Google Form
-        - ERPNext
-        - Maintenance ticket
-        - Internal notification system
-    */
-
-
     alert(
-        "Machine issue reporting will be connected later."
+        "Machine issue reporting will be connected later.\n\n" +
+        "This button can later be linked to the maintenance / ERPNext system."
     );
 
 }
@@ -481,108 +243,81 @@ function reportIssue() {
 
 /* =========================================================
    DOCUMENT PLACEHOLDER
-   ========================================================= */
+========================================================= */
 
-function documentNotAvailable(event) {
+function documentNotAvailable(documentName) {
 
-    event.preventDefault();
-
-
-    showTemporaryMessage(
-        "Document will be added later."
+    alert(
+        documentName +
+        " will be connected here once the actual document is uploaded."
     );
 
 }
 
 
 /* =========================================================
-   CLOSE SIDEBAR AFTER MOBILE NAVIGATION
-   ========================================================= */
+   SIDEBAR LINK BEHAVIOR
+========================================================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
+function setupNavigation() {
 
-        const sidebarLinks =
-            document.querySelectorAll(
-                ".sidebar-link"
-            );
+    const navItems = document.querySelectorAll(".nav-item");
 
+    navItems.forEach(function(item) {
 
-        sidebarLinks.forEach(
-            function(link) {
+        item.addEventListener("click", function() {
 
-                link.addEventListener(
-                    "click",
-                    function() {
+            navItems.forEach(function(nav) {
+                nav.classList.remove("active");
+            });
 
-                        if (
-                            window.innerWidth <= 800
-                        ) {
+            item.classList.add("active");
 
-                            const sidebar =
-                                document.getElementById(
-                                    "sidebar"
-                                );
+            /*
+                On mobile, close the sidebar after selection.
+            */
 
+            if (window.innerWidth <= 800) {
 
-                            if (sidebar) {
-
-                                sidebar.classList.remove(
-                                    "open"
-                                );
-
-                            }
-
-                        }
-
-                    }
-                );
+                document.body.classList.remove("mobile-menu-open");
 
             }
-        );
 
-    }
-);
+        });
 
-
-/* =========================================================
-   UPDATE LAST UPDATED TIME
-   ========================================================= */
-
-function updateLastUpdatedTime() {
-
-    const element =
-        document.getElementById(
-            "lastUpdated"
-        );
-
-
-    if (!element) {
-        return;
-    }
-
-
-    /*
-        For now we keep the displayed date
-        static because this is a design stage.
-
-        Later this can come from:
-        ERPNext / API / database / IoT data.
-    */
+    });
 
 }
 
 
 /* =========================================================
-   INITIALIZE
-   ========================================================= */
+   WINDOW RESIZE
+========================================================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
+window.addEventListener("resize", function() {
 
-        updateLastUpdatedTime();
+    /*
+        Prevent mobile menu state from remaining active
+        when switching back to desktop.
+    */
+
+    if (window.innerWidth > 800) {
+
+        document.body.classList.remove("mobile-menu-open");
 
     }
-);
+
+});
+
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    setupMachineImage();
+
+    setupNavigation();
+
+});
