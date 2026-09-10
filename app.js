@@ -1,21 +1,18 @@
 /* =========================================================
-   SIDEBAR
+   SIDEBAR TOGGLE
 ========================================================= */
 
 function toggleSidebar() {
 
-    const isMobile = window.innerWidth <= 800;
+    const sidebar = document.getElementById("sidebar");
+    const mainContent = document.getElementById("mainContent");
 
-    if (isMobile) {
-
-        document.body.classList.toggle("mobile-menu-open");
-
-    } else {
-
-        document.body.classList.toggle("sidebar-collapsed");
-
+    if (!sidebar || !mainContent) {
+        return;
     }
 
+    sidebar.classList.toggle("collapsed");
+    mainContent.classList.toggle("sidebar-collapsed");
 }
 
 
@@ -27,6 +24,7 @@ function showQR() {
 
     const modal = document.getElementById("qrModal");
     const canvas = document.getElementById("qrCanvas");
+    const pageURL = document.getElementById("pageURL");
 
     if (!modal || !canvas) {
         return;
@@ -34,28 +32,40 @@ function showQR() {
 
     modal.classList.add("show");
 
+    const currentURL = window.location.href;
+
+    if (pageURL) {
+        pageURL.textContent = currentURL;
+    }
+
     /*
-        IMPORTANT:
-        When hosted on GitHub Pages, this will automatically
-        generate a QR containing the public dashboard URL.
+       Clear previous QR
+    */
+    canvas.innerHTML = "";
+
+    /*
+       qrcodejs creates the QR inside the supplied element.
+       The original dashboard URL is used automatically.
     */
 
-    QRCode.toCanvas(
-        canvas,
-        window.location.href,
-        {
-            width: 260,
-            margin: 2,
-            errorCorrectionLevel: "H"
-        },
-        function(error) {
+    if (typeof QRCode !== "undefined") {
 
-            if (error) {
-                console.error("QR generation error:", error);
-            }
+        canvas.innerHTML = "";
 
-        }
-    );
+        new QRCode(canvas, {
+            text: currentURL,
+            width: 240,
+            height: 240,
+            colorDark: "#005C98",
+            colorLight: "#FFFFFF",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+
+    } else {
+
+        console.error("QR Code library not loaded.");
+
+    }
 }
 
 
@@ -70,29 +80,19 @@ function hideModal() {
     if (modal) {
         modal.classList.remove("show");
     }
-
 }
 
 
 /* =========================================================
-   CLOSE MODAL WHEN CLICKING OUTSIDE
+   CLICK OUTSIDE QR MODAL
 ========================================================= */
 
-document.addEventListener("click", function(event) {
+window.addEventListener("click", function(event) {
 
     const modal = document.getElementById("qrModal");
 
-    if (!modal) {
-        return;
-    }
-
-    if (
-        modal.classList.contains("show") &&
-        event.target === modal
-    ) {
-
+    if (event.target === modal) {
         hideModal();
-
     }
 
 });
@@ -106,18 +106,14 @@ function copyPageURL() {
 
     const url = window.location.href;
 
-    if (navigator.clipboard) {
+    if (navigator.clipboard && window.isSecureContext) {
 
         navigator.clipboard.writeText(url)
             .then(function() {
-
-                showNotification("Dashboard URL copied!");
-
+                showNotification("Dashboard URL copied");
             })
             .catch(function() {
-
                 fallbackCopy(url);
-
             });
 
     } else {
@@ -125,41 +121,31 @@ function copyPageURL() {
         fallbackCopy(url);
 
     }
-
 }
 
 
-/* =========================================================
-   FALLBACK COPY
-========================================================= */
-
 function fallbackCopy(text) {
 
-    const textArea = document.createElement("textarea");
+    const textarea = document.createElement("textarea");
 
-    textArea.value = text;
+    textarea.value = text;
 
-    textArea.style.position = "fixed";
-    textArea.style.left = "-9999px";
+    textarea.style.position = "fixed";
+    textarea.style.left = "-9999px";
 
-    document.body.appendChild(textArea);
+    document.body.appendChild(textarea);
 
-    textArea.select();
+    textarea.focus();
+    textarea.select();
 
     try {
-
         document.execCommand("copy");
-
-        showNotification("Dashboard URL copied!");
-
+        showNotification("Dashboard URL copied");
     } catch (error) {
-
-        alert("Please copy this URL manually:\n\n" + text);
-
+        console.error("Copy failed:", error);
     }
 
-    document.body.removeChild(textArea);
-
+    document.body.removeChild(textarea);
 }
 
 
@@ -169,7 +155,15 @@ function fallbackCopy(text) {
 
 function showNotification(message) {
 
+    const existing = document.getElementById("dashboardNotification");
+
+    if (existing) {
+        existing.remove();
+    }
+
     const notification = document.createElement("div");
+
+    notification.id = "dashboardNotification";
 
     notification.textContent = message;
 
@@ -177,30 +171,26 @@ function showNotification(message) {
     notification.style.bottom = "90px";
     notification.style.left = "50%";
     notification.style.transform = "translateX(-50%)";
-
     notification.style.background = "#005C98";
     notification.style.color = "#FFFFFF";
-
-    notification.style.padding = "11px 20px";
-
-    notification.style.borderRadius = "6px";
-
+    notification.style.padding = "11px 18px";
+    notification.style.borderRadius = "5px";
     notification.style.fontSize = "13px";
-    notification.style.fontWeight = "600";
-
     notification.style.zIndex = "3000";
-
-    notification.style.boxShadow =
-        "0 4px 15px rgba(0,0,0,0.25)";
+    notification.style.boxShadow = "0 4px 15px rgba(0,0,0,0.2)";
 
     document.body.appendChild(notification);
 
     setTimeout(function() {
 
-        notification.remove();
+        notification.style.opacity = "0";
+        notification.style.transition = "opacity 0.3s ease";
 
-    }, 2200);
+        setTimeout(function() {
+            notification.remove();
+        }, 300);
 
+    }, 1800);
 }
 
 
@@ -208,22 +198,62 @@ function showNotification(message) {
    MACHINE IMAGE FALLBACK
 ========================================================= */
 
-function setupMachineImage() {
+function machineImageFallback(image) {
 
-    const image = document.getElementById("machineImage");
-    const fallback = document.getElementById("imageFallback");
-
-    if (!image || !fallback) {
+    if (!image) {
         return;
     }
 
-    image.addEventListener("error", function() {
+    /*
+       If the JPG isn't available yet, show a simple
+       dashboard placeholder instead of a broken image.
+    */
 
-        image.style.display = "none";
-        fallback.style.display = "flex";
+    image.style.display = "none";
 
-    });
+    const container = image.parentElement;
 
+    if (!container.querySelector(".machine-image-placeholder")) {
+
+        const placeholder = document.createElement("div");
+
+        placeholder.className = "machine-image-placeholder";
+
+        placeholder.innerHTML = `
+            <div style="
+                text-align:center;
+                color:#005C98;
+                font-weight:700;
+            ">
+                <div style="
+                    font-size:55px;
+                    margin-bottom:8px;
+                ">
+                    <i class="fas fa-industry"></i>
+                </div>
+
+                <div style="font-size:18px;">
+                    400T
+                </div>
+
+                <div style="
+                    font-size:11px;
+                    font-weight:400;
+                    margin-top:4px;
+                ">
+                    Machine Image
+                </div>
+            </div>
+        `;
+
+        placeholder.style.width = "100%";
+        placeholder.style.height = "100%";
+        placeholder.style.display = "flex";
+        placeholder.style.alignItems = "center";
+        placeholder.style.justifyContent = "center";
+
+        container.appendChild(placeholder);
+    }
 }
 
 
@@ -234,10 +264,9 @@ function setupMachineImage() {
 function reportIssue() {
 
     alert(
-        "Machine issue reporting will be connected later.\n\n" +
-        "This button can later be linked to the maintenance / ERPNext system."
+        "Machine issue reporting will be connected here.\n\n" +
+        "This function can later be linked to ERPNext or a maintenance workflow."
     );
-
 }
 
 
@@ -249,63 +278,44 @@ function documentNotAvailable(documentName) {
 
     alert(
         documentName +
-        " will be connected here once the actual document is uploaded."
+        " will be added here once the actual document is available."
     );
-
 }
 
 
 /* =========================================================
-   SIDEBAR LINK BEHAVIOR
+   MOBILE SIDEBAR
 ========================================================= */
 
-function setupNavigation() {
+document.addEventListener("DOMContentLoaded", function() {
 
-    const navItems = document.querySelectorAll(".nav-item");
+    const sidebarLinks = document.querySelectorAll(".nav-item");
 
-    navItems.forEach(function(item) {
+    sidebarLinks.forEach(function(link) {
 
-        item.addEventListener("click", function() {
+        link.addEventListener("click", function() {
 
-            navItems.forEach(function(nav) {
-                nav.classList.remove("active");
-            });
+            if (window.innerWidth <= 760) {
 
-            item.classList.add("active");
+                const sidebar = document.getElementById("sidebar");
+                const mainContent = document.getElementById("mainContent");
 
-            /*
-                On mobile, close the sidebar after selection.
-            */
+                if (
+                    sidebar &&
+                    mainContent &&
+                    !sidebar.classList.contains("collapsed")
+                ) {
 
-            if (window.innerWidth <= 800) {
+                    sidebar.classList.add("collapsed");
+                    mainContent.classList.add("sidebar-collapsed");
 
-                document.body.classList.remove("mobile-menu-open");
+                }
 
             }
 
         });
 
     });
-
-}
-
-
-/* =========================================================
-   WINDOW RESIZE
-========================================================= */
-
-window.addEventListener("resize", function() {
-
-    /*
-        Prevent mobile menu state from remaining active
-        when switching back to desktop.
-    */
-
-    if (window.innerWidth > 800) {
-
-        document.body.classList.remove("mobile-menu-open");
-
-    }
 
 });
 
@@ -316,8 +326,22 @@ window.addEventListener("resize", function() {
 
 document.addEventListener("DOMContentLoaded", function() {
 
-    setupMachineImage();
+    /*
+       Keep the sidebar open by default on desktop.
+    */
 
-    setupNavigation();
+    const sidebar = document.getElementById("sidebar");
+    const mainContent = document.getElementById("mainContent");
+
+    if (
+        window.innerWidth <= 1050 &&
+        sidebar &&
+        mainContent
+    ) {
+
+        sidebar.classList.add("collapsed");
+        mainContent.classList.add("sidebar-collapsed");
+
+    }
 
 });
