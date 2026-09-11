@@ -1,25 +1,34 @@
 /* =========================================================
-   PPPL VISUAL FACTORY
    400 TON PRESS MACHINE
-   ========================================================= */
+   VISUAL FACTORY DASHBOARD
+========================================================= */
 
 
 /* =========================================================
    SIDEBAR
-   ========================================================= */
+========================================================= */
 
 function toggleSidebar() {
-    document.body.classList.toggle("sidebar-collapsed");
+
+    const sidebar = document.getElementById("sidebar");
+
+    if (!sidebar) {
+        return;
+    }
+
+    sidebar.classList.toggle("collapsed");
+
 }
 
 
 /* =========================================================
    QR CODE
-   ========================================================= */
+========================================================= */
 
 function showQR() {
 
     const modal = document.getElementById("qrModal");
+
     const canvas = document.getElementById("qrCanvas");
 
     if (!modal || !canvas) {
@@ -28,74 +37,119 @@ function showQR() {
 
     modal.classList.add("show");
 
+
     /*
-        On GitHub Pages this will automatically use:
+     * Important:
+     *
+     * When the dashboard is opened from GitHub Pages,
+     * window.location.href becomes the public dashboard URL.
+     *
+     * Therefore the QR code automatically points to
+     * the public dashboard.
+     */
 
-        https://rohanlandge6128.github.io/400-ton-press-machine/
+    if (typeof QRCode === "undefined") {
 
-        When testing locally it will use the local file URL.
-        The final QR should therefore be generated/tested
-        after opening the GitHub Pages version.
-    */
+        console.error("QRCode library not loaded.");
+
+        return;
+    }
+
 
     QRCode.toCanvas(
+
         canvas,
+
         window.location.href,
+
         {
             width: 250,
-            margin: 2,
-            errorCorrectionLevel: "H"
+            margin: 2
         },
+
         function(error) {
 
             if (error) {
-                console.error("QR Code Error:", error);
+
+                console.error(
+                    "QR generation failed:",
+                    error
+                );
+
             }
 
         }
+
     );
+
 }
 
+
+/* =========================================================
+   CLOSE QR MODAL
+========================================================= */
 
 function hideModal() {
 
     const modal = document.getElementById("qrModal");
 
     if (modal) {
+
         modal.classList.remove("show");
+
     }
+
 }
 
 
-/* Close QR modal when clicking outside */
+/* =========================================================
+   CLOSE QR WHEN CLICKING BACKGROUND
+========================================================= */
 
-window.addEventListener("click", function(event) {
+function closeQRFromBackground(event) {
 
     const modal = document.getElementById("qrModal");
 
-    if (event.target === modal) {
+    if (
+        modal &&
+        event.target === modal
+    ) {
+
         hideModal();
+
     }
 
-});
+}
 
 
 /* =========================================================
    COPY DASHBOARD URL
-   ========================================================= */
+========================================================= */
 
 function copyPageURL() {
 
     const url = window.location.href;
 
-    if (navigator.clipboard && window.isSecureContext) {
+
+    if (
+        navigator.clipboard &&
+        window.isSecureContext
+    ) {
 
         navigator.clipboard.writeText(url)
+
             .then(function() {
-                showNotification("Dashboard URL copied");
+
+                showNotification(
+                    "Dashboard URL copied"
+                );
+
             })
+
             .catch(function() {
+
                 fallbackCopy(url);
+
             });
 
     } else {
@@ -103,196 +157,281 @@ function copyPageURL() {
         fallbackCopy(url);
 
     }
+
 }
 
 
+/* =========================================================
+   FALLBACK COPY
+========================================================= */
+
 function fallbackCopy(text) {
 
-    const textarea = document.createElement("textarea");
+    const textarea =
+        document.createElement("textarea");
 
     textarea.value = text;
 
     textarea.style.position = "fixed";
+
     textarea.style.left = "-9999px";
 
     document.body.appendChild(textarea);
 
+    textarea.focus();
+
     textarea.select();
 
+
     try {
+
         document.execCommand("copy");
-        showNotification("Dashboard URL copied");
+
+        showNotification(
+            "Dashboard URL copied"
+        );
+
     } catch (error) {
-        alert("Please copy this URL manually:\n\n" + text);
+
+        showNotification(
+            "Unable to copy URL"
+        );
+
     }
 
+
     document.body.removeChild(textarea);
+
 }
 
 
 /* =========================================================
    NOTIFICATION
-   ========================================================= */
+========================================================= */
 
 function showNotification(message) {
 
-    const existing = document.querySelector(".dashboard-notification");
+    const existing =
+        document.querySelector(
+            ".dashboard-notification"
+        );
+
 
     if (existing) {
+
         existing.remove();
+
     }
 
-    const notification = document.createElement("div");
 
-    notification.className = "dashboard-notification";
+    const notification =
+        document.createElement("div");
+
+    notification.className =
+        "dashboard-notification";
 
     notification.textContent = message;
 
-    notification.style.position = "fixed";
-    notification.style.bottom = "85px";
-    notification.style.right = "25px";
-    notification.style.background = "#005C98";
-    notification.style.color = "#FFFFFF";
-    notification.style.padding = "11px 18px";
-    notification.style.borderRadius = "5px";
-    notification.style.fontSize = "13px";
-    notification.style.fontWeight = "600";
-    notification.style.zIndex = "3000";
-    notification.style.boxShadow = "0 4px 15px rgba(0,0,0,0.2)";
 
-    document.body.appendChild(notification);
+    document.body.appendChild(
+        notification
+    );
+
 
     setTimeout(function() {
 
-        notification.style.opacity = "0";
-        notification.style.transition = "opacity 0.3s ease";
+        notification.remove();
 
-        setTimeout(function() {
-            notification.remove();
-        }, 300);
+    }, 2200);
 
-    }, 1800);
-}
-
-
-/* =========================================================
-   MACHINE IMAGE FALLBACK
-   ========================================================= */
-
-function machineImageFallback(image) {
-
-    image.onerror = null;
-
-    image.src =
-        "data:image/svg+xml;charset=UTF-8," +
-        encodeURIComponent(`
-            <svg xmlns="http://www.w3.org/2000/svg"
-                 width="900"
-                 height="500"
-                 viewBox="0 0 900 500">
-
-                <rect width="900"
-                      height="500"
-                      fill="#EAF5F8"/>
-
-                <g fill="#005C98"
-                   text-anchor="middle"
-                   font-family="Arial">
-
-                    <text x="450"
-                          y="225"
-                          font-size="80"
-                          font-weight="bold">
-                        400T
-                    </text>
-
-                    <text x="450"
-                          y="275"
-                          font-size="24">
-                        MACHINE IMAGE
-                    </text>
-
-                </g>
-
-            </svg>
-        `);
 }
 
 
 /* =========================================================
    REPORT MACHINE ISSUE
-   ========================================================= */
+========================================================= */
 
 function reportIssue() {
 
-    alert(
-        "Machine issue reporting will be connected here.\n\n" +
-        "This section can later be connected to ERPNext or " +
-        "a maintenance ticketing system."
+    /*
+     * This is intentionally a placeholder.
+     *
+     * Later this button can be connected to:
+     * - ERPNext
+     * - Maintenance Issue
+     * - Email
+     * - WhatsApp
+     * - A maintenance ticket system
+     */
+
+    showNotification(
+        "Machine issue reporting will be connected later"
     );
+
 }
 
 
 /* =========================================================
    DOCUMENT PLACEHOLDER
-   ========================================================= */
+========================================================= */
 
 function documentNotAvailable(documentName) {
 
-    alert(
-        documentName +
-        " will be added here when the actual document is uploaded."
+    showNotification(
+        documentName + " will be added later"
     );
+
 }
 
 
 /* =========================================================
-   SIDEBAR NAVIGATION
-   ========================================================= */
+   MACHINE IMAGE ERROR
+========================================================= */
 
-document.addEventListener("DOMContentLoaded", function() {
+function machineImageError(image) {
 
-    const navItems = document.querySelectorAll(".nav-item");
+    /*
+     * If the JPG cannot be found,
+     * display a clean placeholder instead
+     * of a broken image icon.
+     */
 
-    navItems.forEach(function(item) {
+    image.style.display = "none";
 
-        item.addEventListener("click", function() {
 
-            navItems.forEach(function(nav) {
-                nav.classList.remove("active");
-            });
+    const container =
+        image.parentElement;
 
-            item.classList.add("active");
 
-        });
+    if (!container) {
+        return;
+    }
 
-    });
 
-});
+    const placeholder =
+        document.createElement("div");
+
+    placeholder.className =
+        "machine-image-placeholder";
+
+
+    placeholder.innerHTML = `
+
+        <i class="fa-solid fa-industry"></i>
+
+        <strong>400T</strong>
+
+        <span>Machine Image</span>
+
+    `;
+
+
+    container.appendChild(
+        placeholder
+    );
+
+}
 
 
 /* =========================================================
-   UPDATE TIME
-   ========================================================= */
+   MOBILE NAVIGATION
+========================================================= */
 
-function updateLastUpdatedTime() {
+function setupNavigation() {
 
-    /*
-        Currently kept as static reference data.
+    const navItems =
+        document.querySelectorAll(
+            ".nav-item"
+        );
 
-        Later this can be connected to live ERPNext /
-        production data.
-    */
+
+    navItems.forEach(function(item) {
+
+        item.addEventListener(
+            "click",
+            function() {
+
+                navItems.forEach(
+                    function(nav) {
+
+                        nav.classList.remove(
+                            "active"
+                        );
+
+                    }
+                );
+
+
+                item.classList.add(
+                    "active"
+                );
+
+
+                /*
+                 * On smaller screens,
+                 * keep navigation usable.
+                 */
+
+                if (
+                    window.innerWidth <= 850
+                ) {
+
+                    const sidebar =
+                        document.getElementById(
+                            "sidebar"
+                        );
+
+                    if (sidebar) {
+
+                        sidebar.classList.add(
+                            "collapsed"
+                        );
+
+                    }
+
+                }
+
+            }
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   ESC KEY
+========================================================= */
+
+function setupKeyboardControls() {
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Escape") {
+
+                hideModal();
+
+            }
+
+        }
+    );
 
 }
 
 
 /* =========================================================
    INITIALIZATION
-   ========================================================= */
+========================================================= */
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
 
-    updateLastUpdatedTime();
+        setupNavigation();
 
-});
+        setupKeyboardControls();
+
+    }
+);
