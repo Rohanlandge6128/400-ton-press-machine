@@ -6,11 +6,8 @@
 
     <title>400 Ton Press Machine | Visual Factory</title>
 
-    <!-- Font Awesome -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    >
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -22,49 +19,45 @@
 ========================= -->
 <header class="top-header">
 
-    <div class="menu-button" id="menuButton" onclick="toggleSidebar()">
-        <i class="fas fa-bars"></i>
+    <div class="menu-button" onclick="toggleSidebar()">
+        <i class="fa-solid fa-bars"></i>
     </div>
 
-    <div class="brand-section">
+    <div class="brand-area">
 
-        <div class="logo-container">
-            <img
-                src="assets/pppl-logo.jpg"
-                alt="PPPL Logo"
-                class="pppl-logo"
-            >
+        <div class="logo-box">
+            <img src="assets/pppl-logo.jpg"
+                 alt="PPPL Logo"
+                 class="company-logo">
         </div>
 
         <div class="brand-divider"></div>
 
-        <div class="brand-title">
-            Visual Factory
+        <div class="factory-title">
+            <strong>Visual Factory</strong>
         </div>
 
-        <div class="brand-tagline">
-            Safe&nbsp;&nbsp;•&nbsp;&nbsp;Efficient&nbsp;&nbsp;•&nbsp;&nbsp;Together
+        <div class="tagline">
+            Safe&nbsp; • &nbsp;Efficient&nbsp; • &nbsp;Together
         </div>
 
     </div>
 
-    <div class="header-status">
+    <div class="header-right">
 
         <div class="last-updated">
-            <i class="far fa-clock"></i>
+            <i class="fa-regular fa-clock"></i>
             <div>
                 <span>Last updated</span>
-                <strong id="lastUpdated">10 Sep 2026&nbsp;&nbsp;11:42 AM</strong>
+                <strong>10 Sep 2026&nbsp;&nbsp;11:42 AM</strong>
             </div>
         </div>
-
-        <div class="header-divider"></div>
 
         <div class="live-data">
             <span class="live-dot"></span>
             <div>
                 <strong>Live Data</strong>
-                <span>(2 min ago)</span>
+                <small>(2 min ago)</small>
             </div>
         </div>
 
@@ -76,15 +69,15 @@
 <!-- =========================
      SIDEBAR
 ========================= -->
-<aside class="sidebar" id="sidebar">
+<aside id="sidebar" class="sidebar">
 
-    <div class="machine-summary">
+    <div class="machine-sidebar-info">
 
-        <div class="machine-summary-icon">
-            <i class="fas fa-industry"></i>
+        <div class="machine-sidebar-icon">
+            <i class="fa-solid fa-industry"></i>
         </div>
 
-        <div class="machine-summary-text">
+        <div class="machine-sidebar-text">
             <strong>400 TON<br>PRESS MACHINE</strong>
             <span>Asset ID: 21013</span>
         </div>
@@ -95,42 +88,42 @@
     <nav class="sidebar-nav">
 
         <a href="#home" class="nav-item active">
-            <i class="fas fa-house"></i>
+            <i class="fa-solid fa-house"></i>
             <span>Home</span>
         </a>
 
         <a href="#overview" class="nav-item">
-            <i class="fas fa-chart-column"></i>
+            <i class="fa-solid fa-chart-column"></i>
             <span>Overview</span>
         </a>
 
         <a href="#production" class="nav-item">
-            <i class="fas fa-chart-simple"></i>
+            <i class="fa-solid fa-chart-simple"></i>
             <span>Production</span>
         </a>
 
         <a href="#maintenance" class="nav-item">
-            <i class="fas fa-wrench"></i>
+            <i class="fa-solid fa-wrench"></i>
             <span>Maintenance</span>
         </a>
 
         <a href="#safety" class="nav-item">
-            <i class="fas fa-shield-halved"></i>
+            <i class="fa-solid fa-shield-halved"></i>
             <span>Safety</span>
         </a>
 
         <a href="#documents" class="nav-item">
-            <i class="fas fa-file-lines"></i>
+            <i class="fa-solid fa-file-lines"></i>
             <span>Documents</span>
         </a>
 
     </nav>
 
 
-    <button class="close-menu" onclick="toggleSidebar()">
-        <i class="fas fa-chevron-left"></i>
+    <div class="sidebar-bottom">
+        <i class="fa-solid fa-chevron-left"></i>
         <span>Close Menu</span>
-    </button>
+    </div>
 
 </aside>
 
@@ -138,162 +131,137 @@
 <!-- =========================
      MAIN CONTENT
 ========================= -->
-<main class="main-content" id="mainContent">
+<main id="mainContent" class="main-content">
 
-    <!-- =========================
-         MACHINE HERO
-    ========================= -->
-    <section class="top-grid" id="home">
+    <!-- HERO -->
+    <section id="home" class="hero-grid">
 
-        <div class="machine-hero">
+        <div class="hero-card">
 
-            <div class="machine-hero-content">
+            <div class="hero-heading">
+                <i class="fa-solid fa-chevron-left"></i>
 
-                <div class="machine-title-row">
+                <div>
+                    <h1>400 TON PRESS MACHINE</h1>
 
-                    <i class="fas fa-chevron-left back-icon"></i>
+                    <p>
+                        Asset ID: 21013
+                        <span>|</span>
+                        Mechanical Press
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="hero-information">
+
+                <!-- STATUS -->
+                <div class="status-box">
+
+                    <div class="status-circle"></div>
 
                     <div>
-                        <h1>400 TON PRESS MACHINE</h1>
-
-                        <p>
-                            Asset ID: 21013
-                            <span class="separator">|</span>
-                            Mechanical Press
-                        </p>
+                        <strong>RUNNING</strong>
+                        <span>Machine operational</span>
                     </div>
 
                 </div>
 
 
-                <div class="status-location-row">
+                <!-- LOCATION -->
+                <div class="location-box">
 
-                    <div class="running-status">
+                    <i class="fa-solid fa-location-dot"></i>
 
-                        <div class="status-circle">
-                            <span></span>
-                        </div>
-
-                        <div>
-                            <strong>RUNNING</strong>
-                            <span>Machine operational</span>
-                        </div>
-
-                    </div>
-
-
-                    <div class="location-box">
-
-                        <i class="fas fa-location-dot"></i>
-
-                        <div>
-                            <strong>Press Shop</strong>
-                            <span>Machine 5 of 11</span>
-                        </div>
-
+                    <div>
+                        <strong>Press Shop</strong>
+                        <span>Machine 5 of 11</span>
                     </div>
 
                 </div>
-
-
-                <button class="report-button" onclick="reportIssue()">
-                    <i class="fas fa-triangle-exclamation"></i>
-                    <span>Report Machine Issue</span>
-                    <i class="fas fa-chevron-right"></i>
-                </button>
 
             </div>
 
 
-            <!-- MACHINE IMAGE -->
-            <div class="machine-image-container">
+            <!-- REPORT ISSUE -->
+            <button class="report-button" onclick="reportIssue()">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span>Report Machine Issue</span>
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
 
-                <img
-                    src="assets/machine-400-ton.jpg"
-                    alt="400 Ton Press Machine"
-                    class="machine-image"
-                    onerror="machineImageFallback(this)"
-                >
+        </div>
+
+
+        <!-- MACHINE IMAGE -->
+        <div class="machine-image-card">
+
+            <img src="assets/machine-400-ton.jpg"
+                 alt="400 Ton Press Machine"
+                 class="machine-image"
+                 onerror="machineImageFallback(this)">
+
+        </div>
+
+
+        <!-- QUICK INFO -->
+        <div class="quick-info card">
+
+            <div class="card-title">
+                <div class="title-icon">
+                    <i class="fa-solid fa-list-check"></i>
+                </div>
+                <span>QUICK INFO</span>
+            </div>
+
+            <div class="quick-info-content">
+
+                <div class="quick-row">
+                    <i class="fa-solid fa-weight-hanging"></i>
+                    <div>
+                        <small>CAPACITY</small>
+                        <strong>400 Ton</strong>
+                    </div>
+                </div>
+
+                <div class="quick-row">
+                    <i class="fa-solid fa-gear"></i>
+                    <div>
+                        <small>TYPE</small>
+                        <strong>Mechanical</strong>
+                    </div>
+                </div>
+
+                <div class="quick-row">
+                    <i class="fa-solid fa-industry"></i>
+                    <div>
+                        <small>MODEL</small>
+                        <strong>SEW SXP-2-400</strong>
+                    </div>
+                </div>
 
             </div>
 
         </div>
 
-
-        <!-- =========================
-             QUICK INFO
-        ========================= -->
-        <section class="dashboard-card quick-info-card">
-
-            <div class="card-header">
-                <div class="header-icon">
-                    <i class="fas fa-list-check"></i>
-                </div>
-                <h2>QUICK INFO</h2>
-            </div>
-
-
-            <div class="quick-info-content">
-
-                <div class="quick-info-item">
-
-                    <i class="fas fa-weight-hanging"></i>
-
-                    <div>
-                        <span>CAPACITY</span>
-                        <strong>400 Ton</strong>
-                    </div>
-
-                </div>
-
-
-                <div class="quick-info-item">
-
-                    <i class="fas fa-gear"></i>
-
-                    <div>
-                        <span>TYPE</span>
-                        <strong>Mechanical</strong>
-                    </div>
-
-                </div>
-
-
-                <div class="quick-info-item">
-
-                    <i class="fas fa-industry"></i>
-
-                    <div>
-                        <span>MODEL</span>
-                        <strong>SEW SXP-2-400</strong>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
     </section>
 
 
     <!-- =========================
-         MIDDLE CARDS
+         FIRST ROW
     ========================= -->
-    <section class="three-column-grid">
+
+    <section class="dashboard-grid">
 
 
         <!-- CURRENT PRODUCTION -->
-        <section class="dashboard-card" id="production">
+        <div id="production" class="dashboard-card">
 
-            <div class="card-header">
-
-                <div class="header-icon">
-                    <i class="fas fa-chart-simple"></i>
+            <div class="card-title">
+                <div class="title-icon">
+                    <i class="fa-solid fa-chart-simple"></i>
                 </div>
-
-                <h2>CURRENT PRODUCTION</h2>
-
+                <span>CURRENT PRODUCTION</span>
             </div>
 
 
@@ -302,24 +270,22 @@
                 <div class="production-left">
 
                     <div class="info-block">
-                        <span>Job No.</span>
+                        <small>Job No.</small>
                         <strong>To be updated</strong>
                     </div>
 
                     <div class="info-block">
-                        <span>Die No.</span>
+                        <small>Die No.</small>
                         <strong>To be updated</strong>
                     </div>
 
-                    <div class="operator-block">
-
-                        <i class="fas fa-user"></i>
+                    <div class="operator">
+                        <i class="fa-solid fa-user"></i>
 
                         <div>
-                            <span>Operator</span>
+                            <small>Operator</small>
                             <strong>To be updated</strong>
                         </div>
-
                     </div>
 
                 </div>
@@ -328,32 +294,30 @@
                 <div class="production-right">
 
                     <div class="production-count">
-
-                        <span>Production Count</span>
+                        <small>Production Count</small>
 
                         <div>
                             <strong>0</strong>
-                            <small>/ 0 pcs</small>
+                            <span>/ 0 pcs</span>
                         </div>
 
-                        <div class="progress-bar">
-                            <div class="progress-value" style="width: 0%;"></div>
+                        <div class="progress-track">
+                            <div class="progress-fill"></div>
                         </div>
 
-                        <small class="progress-percent">0%</small>
-
+                        <small class="progress-value">0%</small>
                     </div>
 
 
                     <div class="production-bottom">
 
                         <div>
-                            <span>Target</span>
+                            <small>Target</small>
                             <strong>To be updated</strong>
                         </div>
 
                         <div>
-                            <span>OEE</span>
+                            <small>OEE</small>
                             <strong>To be updated</strong>
                         </div>
 
@@ -363,54 +327,50 @@
 
             </div>
 
-        </section>
+        </div>
 
 
         <!-- SAFETY -->
-        <section class="dashboard-card" id="safety">
+        <div id="safety" class="dashboard-card">
 
-            <div class="card-header">
-
-                <div class="header-icon">
-                    <i class="fas fa-shield-halved"></i>
+            <div class="card-title">
+                <div class="title-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
                 </div>
-
-                <h2>SAFETY</h2>
-
+                <span>SAFETY</span>
             </div>
 
 
             <div class="safety-content">
 
-                <span class="section-label">PPE REQUIRED</span>
-
+                <small class="section-label">PPE REQUIRED</small>
 
                 <div class="ppe-grid">
 
                     <div class="ppe-item">
                         <div class="ppe-icon">
-                            <i class="fas fa-glasses"></i>
+                            <i class="fa-solid fa-glasses"></i>
                         </div>
                         <span>Safety<br>Glasses</span>
                     </div>
 
                     <div class="ppe-item">
                         <div class="ppe-icon">
-                            <i class="fas fa-shoe-prints"></i>
+                            <i class="fa-solid fa-shoe-prints"></i>
                         </div>
                         <span>Safety<br>Shoes</span>
                     </div>
 
                     <div class="ppe-item">
                         <div class="ppe-icon">
-                            <i class="fas fa-hand"></i>
+                            <i class="fa-solid fa-hand"></i>
                         </div>
                         <span>Hand<br>Protection</span>
                     </div>
 
                     <div class="ppe-item">
                         <div class="ppe-icon">
-                            <i class="fas fa-headphones"></i>
+                            <i class="fa-solid fa-headphones"></i>
                         </div>
                         <span>Hearing<br>Protection</span>
                     </div>
@@ -420,10 +380,10 @@
 
                 <div class="audit-box">
 
-                    <i class="far fa-calendar-days"></i>
+                    <i class="fa-regular fa-calendar-days"></i>
 
                     <div>
-                        <span>Last Safety Audit</span>
+                        <small>Last Safety Audit</small>
                         <strong>To be updated</strong>
                     </div>
 
@@ -431,47 +391,44 @@
 
             </div>
 
-        </section>
+        </div>
 
 
         <!-- MAINTENANCE -->
-        <section class="dashboard-card" id="maintenance">
+        <div id="maintenance" class="dashboard-card">
 
-            <div class="card-header">
-
-                <div class="header-icon">
-                    <i class="fas fa-wrench"></i>
+            <div class="card-title">
+                <div class="title-icon">
+                    <i class="fa-solid fa-wrench"></i>
                 </div>
-
-                <h2>MAINTENANCE</h2>
-
+                <span>MAINTENANCE</span>
             </div>
 
 
             <div class="maintenance-content">
 
-                <div class="next-pm-box">
+                <div class="next-pm">
 
-                    <i class="far fa-calendar-days"></i>
+                    <i class="fa-regular fa-calendar-days"></i>
 
                     <div>
-                        <span>NEXT PM</span>
+                        <small>NEXT PM</small>
                         <strong>October 2026</strong>
-                        <small>Due date to be updated</small>
+                        <span>Due date to be updated</span>
                     </div>
 
                 </div>
 
 
-                <div class="maintenance-row">
+                <div class="maintenance-info">
 
                     <div>
-                        <span>Last PM</span>
+                        <small>Last PM</small>
                         <strong>16 Jul 2026</strong>
                     </div>
 
                     <div>
-                        <span>PM Frequency</span>
+                        <small>PM Frequency</small>
                         <strong>To be updated</strong>
                     </div>
 
@@ -479,166 +436,150 @@
 
 
                 <div class="pm-cycle">
-
-                    <span>PM Cycle</span>
+                    <small>PM Cycle</small>
                     <strong>To be updated</strong>
-
                 </div>
 
             </div>
 
-        </section>
-
-    </section>
-
-
-    <!-- =========================
-         BOTTOM CARDS
-    ========================= -->
-    <section class="three-column-grid bottom-grid">
+        </div>
 
 
         <!-- MACHINE DETAILS -->
-        <section class="dashboard-card" id="overview">
+        <div id="overview" class="dashboard-card">
 
-            <div class="card-header">
-
-                <div class="header-icon">
-                    <i class="fas fa-gear"></i>
+            <div class="card-title">
+                <div class="title-icon">
+                    <i class="fa-solid fa-gear"></i>
                 </div>
-
-                <h2>MACHINE DETAILS</h2>
-
+                <span>MACHINE DETAILS</span>
             </div>
 
 
             <div class="machine-details-grid">
 
                 <div class="detail-box">
-
                     <div class="detail-icon">
-                        <i class="fas fa-arrows-up-down"></i>
+                        <i class="fa-solid fa-arrows-up-down"></i>
                     </div>
 
                     <div>
-                        <span>Stroke</span>
+                        <small>Stroke</small>
                         <strong>300 mm</strong>
                     </div>
-
                 </div>
 
 
                 <div class="detail-box">
-
                     <div class="detail-icon">
-                        <i class="fas fa-arrows-up-down"></i>
+                        <i class="fa-solid fa-arrows-up-down"></i>
                     </div>
 
                     <div>
-                        <span>Shut Height</span>
+                        <small>Shut Height</small>
                         <strong>600 mm</strong>
                     </div>
-
                 </div>
 
 
                 <div class="detail-box">
-
                     <div class="detail-icon">
-                        <i class="fas fa-gauge-high"></i>
+                        <i class="fa-solid fa-gauge-high"></i>
                     </div>
 
                     <div>
-                        <span>Stroke Rate</span>
+                        <small>Stroke Rate</small>
                         <strong>25 SPM</strong>
                     </div>
-
                 </div>
 
 
                 <div class="detail-box">
-
                     <div class="detail-icon">
-                        <i class="fas fa-microchip"></i>
+                        <i class="fa-solid fa-microchip"></i>
                     </div>
 
                     <div>
-                        <span>Motor Power</span>
+                        <small>Motor Power</small>
                         <strong>40 HP</strong>
                     </div>
-
                 </div>
 
             </div>
 
-        </section>
+        </div>
 
 
         <!-- DOCUMENTS -->
-        <section class="dashboard-card" id="documents">
+        <div id="documents" class="dashboard-card">
 
-            <div class="card-header">
-
-                <div class="header-icon">
-                    <i class="fas fa-file-lines"></i>
+            <div class="card-title">
+                <div class="title-icon">
+                    <i class="fa-solid fa-file-lines"></i>
                 </div>
-
-                <h2>DOCUMENTS</h2>
-
+                <span>DOCUMENTS</span>
             </div>
 
 
             <div class="documents-grid">
 
                 <button onclick="documentNotAvailable('Electrical Diagram')">
-                    <i class="fas fa-file-pdf"></i>
-                    <span>Electrical Diagram</span>
-                    <i class="fas fa-chevron-right"></i>
+                    <span>
+                        <i class="fa-solid fa-file-pdf"></i>
+                        Electrical Diagram
+                    </span>
+                    <i class="fa-solid fa-chevron-right"></i>
                 </button>
+
 
                 <button onclick="documentNotAvailable('Hydraulic Circuit')">
-                    <i class="fas fa-file-pdf"></i>
-                    <span>Hydraulic Circuit</span>
-                    <i class="fas fa-chevron-right"></i>
+                    <span>
+                        <i class="fa-solid fa-file-pdf"></i>
+                        Hydraulic Circuit
+                    </span>
+                    <i class="fa-solid fa-chevron-right"></i>
                 </button>
+
 
                 <button onclick="documentNotAvailable('Machine Manual')">
-                    <i class="fas fa-file-pdf"></i>
-                    <span>Machine Manual</span>
-                    <i class="fas fa-chevron-right"></i>
+                    <span>
+                        <i class="fa-solid fa-file-pdf"></i>
+                        Machine Manual
+                    </span>
+                    <i class="fa-solid fa-chevron-right"></i>
                 </button>
+
 
                 <button onclick="documentNotAvailable('PM Checklist')">
-                    <i class="fas fa-file-pdf"></i>
-                    <span>PM Checklist</span>
-                    <i class="fas fa-chevron-right"></i>
+                    <span>
+                        <i class="fa-solid fa-file-pdf"></i>
+                        PM Checklist
+                    </span>
+                    <i class="fa-solid fa-chevron-right"></i>
                 </button>
 
-                <button
-                    class="document-full"
-                    onclick="documentNotAvailable('Warranty Details')"
-                >
-                    <i class="fas fa-file-pdf"></i>
-                    <span>Warranty Details</span>
-                    <i class="fas fa-chevron-right"></i>
+
+                <button onclick="documentNotAvailable('Warranty Details')">
+                    <span>
+                        <i class="fa-solid fa-file-pdf"></i>
+                        Warranty Details
+                    </span>
+                    <i class="fa-solid fa-chevron-right"></i>
                 </button>
 
             </div>
 
-        </section>
+        </div>
 
 
         <!-- CONTACT -->
-        <section class="dashboard-card contact-card">
+        <div class="dashboard-card">
 
-            <div class="card-header">
-
-                <div class="header-icon">
-                    <i class="fas fa-phone"></i>
+            <div class="card-title">
+                <div class="title-icon">
+                    <i class="fa-solid fa-phone"></i>
                 </div>
-
-                <h2>CONTACT</h2>
-
+                <span>CONTACT</span>
             </div>
 
 
@@ -646,7 +587,7 @@
 
                 <div class="contact-block">
 
-                    <span>Maintenance Incharge</span>
+                    <small>Maintenance Incharge</small>
                     <strong>Pramod</strong>
 
                 </div>
@@ -654,31 +595,29 @@
 
                 <div class="contact-block">
 
-                    <span>Supplier / OEM Contact</span>
+                    <small>Supplier / OEM Contact</small>
 
-                    <strong>
-                        <i class="fas fa-phone"></i>
+                    <a href="tel:+912827252358">
                         +91 2827 252358
-                    </strong>
+                    </a>
 
-                    <strong>
-                        <i class="fas fa-phone"></i>
+                    <a href="tel:+912827253381">
                         +91 2827 253381
-                    </strong>
+                    </a>
 
                 </div>
 
 
-                <div class="contact-block warranty-block">
+                <div class="contact-block">
 
-                    <span>Warranty</span>
+                    <small>Warranty</small>
                     <strong>To be updated</strong>
 
                 </div>
 
             </div>
 
-        </section>
+        </div>
 
     </section>
 
@@ -689,33 +628,29 @@
      FLOATING QR BUTTON
 ========================= -->
 <button class="qr-floating-button" onclick="showQR()">
-    <i class="fas fa-qrcode"></i>
+    <i class="fa-solid fa-qrcode"></i>
 </button>
 
 
 <!-- =========================
      QR MODAL
 ========================= -->
-<div class="qr-modal" id="qrModal">
+<div id="qrModal" class="modal">
 
-    <div class="qr-modal-content">
+    <div class="modal-content">
 
-        <button class="qr-close" onclick="hideModal()">
-            <i class="fas fa-xmark"></i>
+        <button class="modal-close" onclick="hideModal()">
+            <i class="fa-solid fa-xmark"></i>
         </button>
 
-        <h2>SCAN MACHINE QR</h2>
+        <h2>Machine QR Code</h2>
 
-        <p>
-            Scan this QR code to open the machine dashboard.
-        </p>
+        <p>Scan to open this machine dashboard</p>
 
         <canvas id="qrCanvas"></canvas>
 
-        <div class="qr-url" id="pageURL"></div>
-
         <button class="copy-url-button" onclick="copyPageURL()">
-            <i class="fas fa-copy"></i>
+            <i class="fa-solid fa-copy"></i>
             Copy Dashboard URL
         </button>
 
@@ -724,9 +659,7 @@
 </div>
 
 
-<!-- QR Code Library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.3/qrcode.min.js"></script>
 <script src="app.js"></script>
 
 </body>
