@@ -1,6 +1,6 @@
 /* =========================================================
-   PPPL VISUAL FACTORY
    400 TON PRESS MACHINE
+   VISUAL FACTORY DASHBOARD
 ========================================================= */
 
 
@@ -10,25 +10,14 @@
 
 function toggleSidebar() {
 
-    const body = document.body;
+    const sidebar = document.getElementById("sidebar");
 
-    /*
-       Desktop:
-       collapse sidebar to icons only.
-
-       Mobile:
-       open/close sidebar as a drawer.
-    */
-
-    if (window.innerWidth <= 800) {
-
-        body.classList.toggle("sidebar-open");
-
-    } else {
-
-        body.classList.toggle("sidebar-collapsed");
-
+    if (!sidebar) {
+        return;
     }
+
+    sidebar.classList.toggle("collapsed");
+
 }
 
 
@@ -39,8 +28,8 @@ function toggleSidebar() {
 function showQR() {
 
     const modal = document.getElementById("qrModal");
+
     const canvas = document.getElementById("qrCanvas");
-    const urlBox = document.getElementById("qrUrl");
 
     if (!modal || !canvas) {
         return;
@@ -48,47 +37,51 @@ function showQR() {
 
     modal.classList.add("show");
 
-    /*
-       The QR will automatically contain the current URL.
-
-       When opened from GitHub Pages:
-       it will contain the public GitHub Pages URL.
-
-       When opened locally:
-       it will contain the local file URL,
-       which is only useful for testing.
-    */
-
-    const currentURL = window.location.href;
-
-    urlBox.textContent = currentURL;
 
     /*
-       Clear previous QR.
-    */
-    canvas.innerHTML = "";
+     * Important:
+     *
+     * When the dashboard is opened from GitHub Pages,
+     * window.location.href becomes the public dashboard URL.
+     *
+     * Therefore the QR code automatically points to
+     * the public dashboard.
+     */
 
-    /*
-       qrcodejs generates into a DIV, not canvas.
-       Therefore we use a temporary QR container.
-    */
+    if (typeof QRCode === "undefined") {
 
-    const qrContainer = document.querySelector(".qr-container");
+        console.error("QRCode library not loaded.");
 
-    if (!qrContainer) {
         return;
     }
 
-    qrContainer.innerHTML = "";
 
-    new QRCode(qrContainer, {
-        text: currentURL,
-        width: 210,
-        height: 210,
-        colorDark: "#000000",
-        colorLight: "#FFFFFF",
-        correctLevel: QRCode.CorrectLevel.H
-    });
+    QRCode.toCanvas(
+
+        canvas,
+
+        window.location.href,
+
+        {
+            width: 250,
+            margin: 2
+        },
+
+        function(error) {
+
+            if (error) {
+
+                console.error(
+                    "QR generation failed:",
+                    error
+                );
+
+            }
+
+        }
+
+    );
+
 }
 
 
@@ -101,43 +94,32 @@ function hideModal() {
     const modal = document.getElementById("qrModal");
 
     if (modal) {
+
         modal.classList.remove("show");
+
     }
+
 }
 
 
 /* =========================================================
-   CLOSE MODAL WHEN CLICKING OUTSIDE
+   CLOSE QR WHEN CLICKING BACKGROUND
 ========================================================= */
 
-document.addEventListener("click", function(event) {
+function closeQRFromBackground(event) {
 
     const modal = document.getElementById("qrModal");
 
-    if (!modal) {
-        return;
-    }
-
     if (
+        modal &&
         event.target === modal
     ) {
+
         hideModal();
+
     }
 
-});
-
-
-/* =========================================================
-   ESC KEY CLOSE
-========================================================= */
-
-document.addEventListener("keydown", function(event) {
-
-    if (event.key === "Escape") {
-        hideModal();
-    }
-
-});
+}
 
 
 /* =========================================================
@@ -148,17 +130,26 @@ function copyPageURL() {
 
     const url = window.location.href;
 
+
     if (
         navigator.clipboard &&
         window.isSecureContext
     ) {
 
         navigator.clipboard.writeText(url)
+
             .then(function() {
-                showNotification("Dashboard URL copied");
+
+                showNotification(
+                    "Dashboard URL copied"
+                );
+
             })
+
             .catch(function() {
+
                 fallbackCopy(url);
+
             });
 
     } else {
@@ -166,6 +157,7 @@ function copyPageURL() {
         fallbackCopy(url);
 
     }
+
 }
 
 
@@ -175,30 +167,41 @@ function copyPageURL() {
 
 function fallbackCopy(text) {
 
-    const textarea = document.createElement("textarea");
+    const textarea =
+        document.createElement("textarea");
 
     textarea.value = text;
 
     textarea.style.position = "fixed";
+
     textarea.style.left = "-9999px";
 
     document.body.appendChild(textarea);
 
+    textarea.focus();
+
     textarea.select();
+
 
     try {
 
         document.execCommand("copy");
 
-        showNotification("Dashboard URL copied");
+        showNotification(
+            "Dashboard URL copied"
+        );
 
     } catch (error) {
 
-        showNotification("Copy failed");
+        showNotification(
+            "Unable to copy URL"
+        );
 
     }
 
+
     document.body.removeChild(textarea);
+
 }
 
 
@@ -208,38 +211,39 @@ function fallbackCopy(text) {
 
 function showNotification(message) {
 
-    const existing = document.querySelector(".dashboard-notification");
+    const existing =
+        document.querySelector(
+            ".dashboard-notification"
+        );
+
 
     if (existing) {
+
         existing.remove();
+
     }
 
-    const notification = document.createElement("div");
 
-    notification.className = "dashboard-notification";
+    const notification =
+        document.createElement("div");
+
+    notification.className =
+        "dashboard-notification";
 
     notification.textContent = message;
 
-    notification.style.position = "fixed";
-    notification.style.left = "50%";
-    notification.style.bottom = "25px";
-    notification.style.transform = "translateX(-50%)";
-    notification.style.background = "#005C98";
-    notification.style.color = "#FFFFFF";
-    notification.style.padding = "11px 18px";
-    notification.style.borderRadius = "5px";
-    notification.style.fontSize = "13px";
-    notification.style.fontWeight = "600";
-    notification.style.zIndex = "3000";
-    notification.style.boxShadow = "0 3px 12px rgba(0,0,0,0.2)";
 
-    document.body.appendChild(notification);
+    document.body.appendChild(
+        notification
+    );
+
 
     setTimeout(function() {
 
         notification.remove();
 
     }, 2200);
+
 }
 
 
@@ -249,8 +253,19 @@ function showNotification(message) {
 
 function reportIssue() {
 
-    alert(
-        "Machine issue reporting will be connected here."
+    /*
+     * This is intentionally a placeholder.
+     *
+     * Later this button can be connected to:
+     * - ERPNext
+     * - Maintenance Issue
+     * - Email
+     * - WhatsApp
+     * - A maintenance ticket system
+     */
+
+    showNotification(
+        "Machine issue reporting will be connected later"
     );
 
 }
@@ -262,9 +277,8 @@ function reportIssue() {
 
 function documentNotAvailable(documentName) {
 
-    alert(
-        documentName +
-        " will be added here when the actual document is available."
+    showNotification(
+        documentName + " will be added later"
     );
 
 }
@@ -277,122 +291,147 @@ function documentNotAvailable(documentName) {
 function machineImageError(image) {
 
     /*
-       If JPG is missing, don't allow the broken
-       image icon to destroy the layout.
-    */
+     * If the JPG cannot be found,
+     * display a clean placeholder instead
+     * of a broken image icon.
+     */
 
     image.style.display = "none";
 
-    const container = image.parentElement;
+
+    const container =
+        image.parentElement;
+
 
     if (!container) {
         return;
     }
 
-    container.classList.add("image-missing");
 
-    container.innerHTML = `
-        <div style="
-            width:100%;
-            height:100%;
-            min-height:240px;
-            border-radius:5px;
-            background:#EAF5F9;
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            justify-content:center;
-            color:#005C98;
-            text-align:center;
-        ">
-            <i class="fa-solid fa-industry"
-               style="font-size:55px;margin-bottom:12px;">
-            </i>
+    const placeholder =
+        document.createElement("div");
 
-            <strong style="font-size:20px;">
-                400T
-            </strong>
+    placeholder.className =
+        "machine-image-placeholder";
 
-            <span style="
-                margin-top:5px;
-                font-size:12px;
-            ">
-                Machine Image
-            </span>
-        </div>
+
+    placeholder.innerHTML = `
+
+        <i class="fa-solid fa-industry"></i>
+
+        <strong>400T</strong>
+
+        <span>Machine Image</span>
+
     `;
+
+
+    container.appendChild(
+        placeholder
+    );
+
 }
 
 
 /* =========================================================
-   MOBILE SIDEBAR LINKS
+   MOBILE NAVIGATION
 ========================================================= */
 
-document.addEventListener("DOMContentLoaded", function() {
+function setupNavigation() {
 
-    const links = document.querySelectorAll(".sidebar-link");
+    const navItems =
+        document.querySelectorAll(
+            ".nav-item"
+        );
 
-    links.forEach(function(link) {
 
-        link.addEventListener("click", function() {
+    navItems.forEach(function(item) {
 
-            if (window.innerWidth <= 800) {
+        item.addEventListener(
+            "click",
+            function() {
 
-                document.body.classList.remove(
-                    "sidebar-open"
+                navItems.forEach(
+                    function(nav) {
+
+                        nav.classList.remove(
+                            "active"
+                        );
+
+                    }
                 );
+
+
+                item.classList.add(
+                    "active"
+                );
+
+
+                /*
+                 * On smaller screens,
+                 * keep navigation usable.
+                 */
+
+                if (
+                    window.innerWidth <= 850
+                ) {
+
+                    const sidebar =
+                        document.getElementById(
+                            "sidebar"
+                        );
+
+                    if (sidebar) {
+
+                        sidebar.classList.add(
+                            "collapsed"
+                        );
+
+                    }
+
+                }
+
+            }
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   ESC KEY
+========================================================= */
+
+function setupKeyboardControls() {
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Escape") {
+
+                hideModal();
 
             }
 
-        });
+        }
+    );
 
-    });
-
-});
+}
 
 
 /* =========================================================
-   RESPONSIVE SIDEBAR STATE
+   INITIALIZATION
 ========================================================= */
 
-window.addEventListener("resize", function() {
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
 
-    /*
-       When returning from mobile to desktop,
-       remove mobile drawer state.
-    */
+        setupNavigation();
 
-    if (window.innerWidth > 800) {
-
-        document.body.classList.remove(
-            "sidebar-open"
-        );
+        setupKeyboardControls();
 
     }
-
-});
-
-
-/* =========================================================
-   ACTIVE SIDEBAR LINK
-========================================================= */
-
-document.addEventListener("DOMContentLoaded", function() {
-
-    const links = document.querySelectorAll(".sidebar-link");
-
-    links.forEach(function(link) {
-
-        link.addEventListener("click", function() {
-
-            links.forEach(function(item) {
-                item.classList.remove("active");
-            });
-
-            this.classList.add("active");
-
-        });
-
-    });
-
-});
+);
