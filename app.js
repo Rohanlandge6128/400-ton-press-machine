@@ -1,6 +1,6 @@
 /* =========================================================
-   400 TON PRESS MACHINE
-   VISUAL FACTORY DASHBOARD
+   PPPL VISUAL FACTORY
+   Factory Map + 400 Ton Press Machine Dashboard
 ========================================================= */
 
 
@@ -10,297 +10,263 @@
 
 function toggleSidebar() {
 
-    const sidebar = document.getElementById("sidebar");
-
-    if (!sidebar) {
-        return;
-    }
-
-    sidebar.classList.toggle("collapsed");
+    document.body.classList.toggle(
+        "sidebar-collapsed"
+    );
 
 }
 
 
 /* =========================================================
-   QR CODE
+   NAVIGATION
 ========================================================= */
 
-function showQR() {
+function goHome() {
 
-    const modal = document.getElementById("qrModal");
+    const baseUrl =
+        window.location.origin +
+        window.location.pathname;
 
-    const canvas = document.getElementById("qrCanvas");
+    window.location.href =
+        baseUrl;
 
-    if (!modal || !canvas) {
+}
+
+
+function goFactoryMap() {
+
+    const baseUrl =
+        window.location.origin +
+        window.location.pathname;
+
+    window.location.href =
+        baseUrl;
+
+}
+
+
+/* =========================================================
+   MACHINE POPUP
+========================================================= */
+
+function openMachinePopup() {
+
+    const popup =
+        document.getElementById(
+            "machinePopup"
+        );
+
+    if (!popup) {
         return;
     }
 
-    modal.classList.add("show");
+    popup.classList.add("show");
+
+}
+
+
+function closeMachinePopup() {
+
+    const popup =
+        document.getElementById(
+            "machinePopup"
+        );
+
+    if (!popup) {
+        return;
+    }
+
+    popup.classList.remove("show");
+
+}
+
+
+/* =========================================================
+   OPEN 400 TON DASHBOARD
+   P-05 → READ MORE → NEW TAB
+========================================================= */
+
+function openMachineDashboard() {
+
+    /*
+       Close the popup first.
+    */
+
+    closeMachinePopup();
 
 
     /*
-     * Important:
-     *
-     * When the dashboard is opened from GitHub Pages,
-     * window.location.href becomes the public dashboard URL.
-     *
-     * Therefore the QR code automatically points to
-     * the public dashboard.
-     */
+       Build the dashboard URL.
 
-    if (typeof QRCode === "undefined") {
+       IMPORTANT:
+       This uses the SAME index.html.
 
-        console.error("QRCode library not loaded.");
+       ?machine=21013 tells app.js to
+       display the existing 400 Ton dashboard.
+    */
 
-        return;
+    const dashboardUrl =
+        window.location.origin +
+        window.location.pathname +
+        "?machine=21013";
+
+
+    /*
+       Open the dashboard in a NEW TAB.
+    */
+
+    const dashboardTab =
+        window.open(
+            dashboardUrl,
+            "_blank"
+        );
+
+
+    /*
+       Focus new tab where browser permits it.
+    */
+
+    if (dashboardTab) {
+
+        dashboardTab.focus();
+
     }
 
+}
 
-    QRCode.toCanvas(
 
-        canvas,
+/* =========================================================
+   LOAD CORRECT PAGE
+========================================================= */
 
-        window.location.href,
+function loadPage() {
 
-        {
-            width: 250,
-            margin: 2
-        },
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
 
-        function(error) {
 
-            if (error) {
+    const machine =
+        params.get("machine");
 
-                console.error(
-                    "QR generation failed:",
-                    error
-                );
 
-            }
+    const factoryMapPage =
+        document.getElementById(
+            "factoryMapPage"
+        );
+
+
+    const machineDashboardPage =
+        document.getElementById(
+            "machineDashboardPage"
+        );
+
+
+    const machinePopup =
+        document.getElementById(
+            "machinePopup"
+        );
+
+
+    /*
+       =====================================================
+       400 TON PRESS MACHINE
+       =====================================================
+    */
+
+    if (machine === "21013") {
+
+
+        /*
+           Hide Factory Map.
+        */
+
+        if (factoryMapPage) {
+
+            factoryMapPage.style.display =
+                "none";
 
         }
 
-    );
 
-}
+        /*
+           Close popup.
+        */
 
+        if (machinePopup) {
 
-/* =========================================================
-   CLOSE QR MODAL
-========================================================= */
+            machinePopup.classList.remove(
+                "show"
+            );
 
-function hideModal() {
-
-    const modal = document.getElementById("qrModal");
-
-    if (modal) {
-
-        modal.classList.remove("show");
-
-    }
-
-}
+        }
 
 
-/* =========================================================
-   CLOSE QR WHEN CLICKING BACKGROUND
-========================================================= */
+        /*
+           Show Dashboard.
+        */
 
-function closeQRFromBackground(event) {
+        if (machineDashboardPage) {
 
-    const modal = document.getElementById("qrModal");
+            machineDashboardPage.style.display =
+                "block";
 
-    if (
-        modal &&
-        event.target === modal
-    ) {
+            machineDashboardPage.classList.add(
+                "active"
+            );
 
-        hideModal();
+            renderMachineDashboard();
+
+        }
+
+
+        return;
 
     }
 
-}
-
-
-/* =========================================================
-   COPY DASHBOARD URL
-========================================================= */
-
-function copyPageURL() {
-
-    const url = window.location.href;
-
-
-    if (
-        navigator.clipboard &&
-        window.isSecureContext
-    ) {
-
-        navigator.clipboard.writeText(url)
-
-            .then(function() {
-
-                showNotification(
-                    "Dashboard URL copied"
-                );
-
-            })
-
-            .catch(function() {
-
-                fallbackCopy(url);
-
-            });
-
-    } else {
-
-        fallbackCopy(url);
-
-    }
-
-}
-
-
-/* =========================================================
-   FALLBACK COPY
-========================================================= */
-
-function fallbackCopy(text) {
-
-    const textarea =
-        document.createElement("textarea");
-
-    textarea.value = text;
-
-    textarea.style.position = "fixed";
-
-    textarea.style.left = "-9999px";
-
-    document.body.appendChild(textarea);
-
-    textarea.focus();
-
-    textarea.select();
-
-
-    try {
-
-        document.execCommand("copy");
-
-        showNotification(
-            "Dashboard URL copied"
-        );
-
-    } catch (error) {
-
-        showNotification(
-            "Unable to copy URL"
-        );
-
-    }
-
-
-    document.body.removeChild(textarea);
-
-}
-
-
-/* =========================================================
-   NOTIFICATION
-========================================================= */
-
-function showNotification(message) {
-
-    const existing =
-        document.querySelector(
-            ".dashboard-notification"
-        );
-
-
-    if (existing) {
-
-        existing.remove();
-
-    }
-
-
-    const notification =
-        document.createElement("div");
-
-    notification.className =
-        "dashboard-notification";
-
-    notification.textContent = message;
-
-
-    document.body.appendChild(
-        notification
-    );
-
-
-    setTimeout(function() {
-
-        notification.remove();
-
-    }, 2200);
-
-}
-
-
-/* =========================================================
-   REPORT MACHINE ISSUE
-========================================================= */
-
-function reportIssue() {
 
     /*
-     * This is intentionally a placeholder.
-     *
-     * Later this button can be connected to:
-     * - ERPNext
-     * - Maintenance Issue
-     * - Email
-     * - WhatsApp
-     * - A maintenance ticket system
-     */
+       =====================================================
+       FACTORY MAP
+       =====================================================
+    */
 
-    showNotification(
-        "Machine issue reporting will be connected later"
-    );
+    if (factoryMapPage) {
+
+        factoryMapPage.style.display =
+            "block";
+
+    }
+
+
+    if (machineDashboardPage) {
+
+        machineDashboardPage.style.display =
+            "none";
+
+        machineDashboardPage.classList.remove(
+            "active"
+        );
+
+        machineDashboardPage.innerHTML =
+            "";
+
+    }
 
 }
 
 
 /* =========================================================
-   DOCUMENT PLACEHOLDER
+   RENDER 400 TON MACHINE DASHBOARD
 ========================================================= */
 
-function documentNotAvailable(documentName) {
-
-    showNotification(
-        documentName + " will be added later"
-    );
-
-}
-
-
-/* =========================================================
-   MACHINE IMAGE ERROR
-========================================================= */
-
-function machineImageError(image) {
-
-    /*
-     * If the JPG cannot be found,
-     * display a clean placeholder instead
-     * of a broken image icon.
-     */
-
-    image.style.display = "none";
-
+function renderMachineDashboard() {
 
     const container =
-        image.parentElement;
+        document.getElementById(
+            "machineDashboardPage"
+        );
 
 
     if (!container) {
@@ -308,112 +274,1223 @@ function machineImageError(image) {
     }
 
 
-    const placeholder =
-        document.createElement("div");
-
-    placeholder.className =
-        "machine-image-placeholder";
+    container.innerHTML = `
 
 
-    placeholder.innerHTML = `
+        <!-- =================================================
+             HERO
+        ================================================== -->
 
-        <i class="fa-solid fa-industry"></i>
+        <div class="detail-hero">
 
-        <strong>400T</strong>
 
-        <span>Machine Image</span>
+            <div class="detail-hero-left">
+
+
+                <div class="detail-title-row">
+
+
+                    <button
+                        class="detail-back"
+                        onclick="goBackToFactoryMap()"
+                        title="Back to Factory Map"
+                    >
+
+                        <i class="fa-solid fa-chevron-left"></i>
+
+                    </button>
+
+
+                    <h1 class="detail-title">
+                        400 TON PRESS MACHINE
+                    </h1>
+
+
+                </div>
+
+
+                <div class="detail-subtitle">
+
+                    Asset ID: 21013
+                    &nbsp;&nbsp;|&nbsp;&nbsp;
+                    Mechanical Press
+
+                </div>
+
+
+                <!-- STATUS -->
+
+                <div class="hero-status-row">
+
+
+                    <div class="hero-running">
+
+
+                        <div class="status-circle"></div>
+
+
+                        <div class="hero-running-text">
+
+                            <strong>
+                                RUNNING
+                            </strong>
+
+                            <span>
+                                Machine operational
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="hero-location">
+
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+
+                        <div>
+
+                            <strong>
+                                Press Shop
+                            </strong>
+
+                            <span>
+                                Machine 5 of 11
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- REPORT ISSUE -->
+
+                <button
+                    class="report-issue"
+                    onclick="reportIssue()"
+                >
+
+                    <span>
+
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+
+                        &nbsp;
+
+                        Report Machine Issue
+
+                    </span>
+
+
+                    <i class="fa-solid fa-chevron-right"></i>
+
+                </button>
+
+
+            </div>
+
+
+            <!-- MACHINE IMAGE -->
+
+            <div class="detail-machine-image">
+
+
+                <img
+                    src="assets/machine-400-ton.jpg"
+                    alt="400 Ton Press Machine"
+                    onerror="machineImageFallback(this)"
+                >
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             DETAIL GRID
+        ================================================== -->
+
+        <div class="detail-grid">
+
+
+            <!-- =================================================
+                 CURRENT PRODUCTION
+            ================================================== -->
+
+            <section class="detail-card">
+
+
+                <div class="detail-card-header">
+
+
+                    <span class="card-icon">
+
+                        <i class="fa-solid fa-chart-simple"></i>
+
+                    </span>
+
+
+                    CURRENT PRODUCTION
+
+
+                </div>
+
+
+                <div class="detail-card-body">
+
+
+                    <div class="production-body">
+
+
+                        <div class="production-left">
+
+
+                            <div class="production-field">
+
+
+                                <span class="field-label">
+                                    Job No.
+                                </span>
+
+
+                                <span class="field-value">
+                                    To be updated
+                                </span>
+
+
+                            </div>
+
+
+                            <div class="production-field">
+
+
+                                <span class="field-label">
+                                    Die No.
+                                </span>
+
+
+                                <span class="field-value">
+                                    To be updated
+                                </span>
+
+
+                            </div>
+
+
+                            <div class="production-field">
+
+
+                                <span class="field-label">
+
+                                    <i class="fa-solid fa-user"></i>
+
+                                    &nbsp;
+
+                                    Operator
+
+                                </span>
+
+
+                                <span class="field-value">
+                                    To be updated
+                                </span>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="production-right">
+
+
+                            <div class="production-count">
+
+
+                                <span class="field-label">
+                                    Production Count
+                                </span>
+
+
+                                <div class="production-number">
+
+                                    0
+
+                                    <small>
+                                        / 0 pcs
+                                    </small>
+
+                                </div>
+
+
+                                <div class="production-progress">
+
+                                    <span></span>
+
+                                </div>
+
+
+                                <span class="progress-percent">
+                                    0%
+                                </span>
+
+
+                            </div>
+
+
+                            <div class="production-bottom">
+
+
+                                <div>
+
+                                    <span class="field-label">
+                                        Target
+                                    </span>
+
+
+                                    <strong>
+                                        To be updated
+                                    </strong>
+
+                                </div>
+
+
+                                <div>
+
+                                    <span class="field-label">
+                                        OEE
+                                    </span>
+
+
+                                    <strong>
+                                        To be updated
+                                    </strong>
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 SAFETY
+            ================================================== -->
+
+            <section class="detail-card">
+
+
+                <div class="detail-card-header">
+
+
+                    <span class="card-icon">
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                    </span>
+
+
+                    SAFETY
+
+
+                </div>
+
+
+                <div class="detail-card-body">
+
+
+                    <span class="field-label">
+                        PPE REQUIRED
+                    </span>
+
+
+                    <div class="safety-icons">
+
+
+                        <div class="safety-item">
+
+
+                            <div class="safety-circle">
+
+                                <i class="fa-solid fa-glasses"></i>
+
+                            </div>
+
+
+                            <span>
+                                Safety<br>Glasses
+                            </span>
+
+
+                        </div>
+
+
+                        <div class="safety-item">
+
+
+                            <div class="safety-circle">
+
+                                <i class="fa-solid fa-shoe-prints"></i>
+
+                            </div>
+
+
+                            <span>
+                                Safety<br>Shoes
+                            </span>
+
+
+                        </div>
+
+
+                        <div class="safety-item">
+
+
+                            <div class="safety-circle">
+
+                                <i class="fa-solid fa-hand"></i>
+
+                            </div>
+
+
+                            <span>
+                                Hand<br>Protection
+                            </span>
+
+
+                        </div>
+
+
+                        <div class="safety-item">
+
+
+                            <div class="safety-circle">
+
+                                <i class="fa-solid fa-headphones"></i>
+
+                            </div>
+
+
+                            <span>
+                                Hearing<br>Protection
+                            </span>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="audit-box">
+
+
+                        <i class="fa-regular fa-calendar-days"></i>
+
+
+                        <div>
+
+
+                            <small>
+                                Last Safety Audit
+                            </small>
+
+
+                            <strong>
+                                To be updated
+                            </strong>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 MAINTENANCE
+            ================================================== -->
+
+            <section class="detail-card">
+
+
+                <div class="detail-card-header">
+
+
+                    <span class="card-icon">
+
+                        <i class="fa-solid fa-wrench"></i>
+
+                    </span>
+
+
+                    MAINTENANCE
+
+
+                </div>
+
+
+                <div class="detail-card-body">
+
+
+                    <div class="next-pm">
+
+
+                        <i class="fa-regular fa-calendar-days"></i>
+
+
+                        <div>
+
+
+                            <small>
+                                NEXT PM
+                            </small>
+
+
+                            <strong>
+                                October 2026
+                            </strong>
+
+
+                            <span>
+                                Due date to be updated
+                            </span>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="maintenance-row">
+
+
+                        <div>
+
+
+                            <span class="field-label">
+                                Last PM
+                            </span>
+
+
+                            <span class="field-value">
+                                16 Jul 2026
+                            </span>
+
+
+                        </div>
+
+
+                        <div>
+
+
+                            <span class="field-label">
+                                PM Frequency
+                            </span>
+
+
+                            <span class="field-value">
+                                To be updated
+                            </span>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="pm-cycle">
+
+
+                        <span class="field-label">
+                            PM Cycle
+                        </span>
+
+
+                        <span class="field-value">
+                            To be updated
+                        </span>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 MACHINE DETAILS
+            ================================================== -->
+
+            <section class="detail-card">
+
+
+                <div class="detail-card-header">
+
+
+                    <span class="card-icon">
+
+                        <i class="fa-solid fa-gear"></i>
+
+                    </span>
+
+
+                    MACHINE DETAILS
+
+
+                </div>
+
+
+                <div class="detail-card-body">
+
+
+                    <div class="machine-specs">
+
+
+                        <div class="spec-box">
+
+
+                            <div class="spec-icon">
+
+                                <i class="fa-solid fa-arrows-up-down"></i>
+
+                            </div>
+
+
+                            <div class="spec-text">
+
+
+                                <small>
+                                    Stroke
+                                </small>
+
+
+                                <strong>
+                                    300 mm
+                                </strong>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="spec-box">
+
+
+                            <div class="spec-icon">
+
+                                <i class="fa-solid fa-arrows-up-down"></i>
+
+                            </div>
+
+
+                            <div class="spec-text">
+
+
+                                <small>
+                                    Shut Height
+                                </small>
+
+
+                                <strong>
+                                    600 mm
+                                </strong>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="spec-box">
+
+
+                            <div class="spec-icon">
+
+                                <i class="fa-solid fa-gauge-high"></i>
+
+                            </div>
+
+
+                            <div class="spec-text">
+
+
+                                <small>
+                                    Stroke Rate
+                                </small>
+
+
+                                <strong>
+                                    25 SPM
+                                </strong>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="spec-box">
+
+
+                            <div class="spec-icon">
+
+                                <i class="fa-solid fa-microchip"></i>
+
+                            </div>
+
+
+                            <div class="spec-text">
+
+
+                                <small>
+                                    Motor Power
+                                </small>
+
+
+                                <strong>
+                                    40 HP
+                                </strong>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 DOCUMENTS
+            ================================================== -->
+
+            <section class="detail-card">
+
+
+                <div class="detail-card-header">
+
+
+                    <span class="card-icon">
+
+                        <i class="fa-solid fa-file-lines"></i>
+
+                    </span>
+
+
+                    DOCUMENTS
+
+
+                </div>
+
+
+                <div class="detail-card-body">
+
+
+                    <div class="documents-grid">
+
+
+                        <button
+                            class="document-btn"
+                            onclick="documentNotAvailable('Electrical Diagram')"
+                        >
+
+                            <span>
+
+                                <i class="fa-solid fa-file-pdf"></i>
+
+                                Electrical Diagram
+
+                            </span>
+
+
+                            <i class="fa-solid fa-chevron-right"></i>
+
+                        </button>
+
+
+                        <button
+                            class="document-btn"
+                            onclick="documentNotAvailable('Hydraulic Circuit')"
+                        >
+
+                            <span>
+
+                                <i class="fa-solid fa-file-pdf"></i>
+
+                                Hydraulic Circuit
+
+                            </span>
+
+
+                            <i class="fa-solid fa-chevron-right"></i>
+
+                        </button>
+
+
+                        <button
+                            class="document-btn"
+                            onclick="documentNotAvailable('Machine Manual')"
+                        >
+
+                            <span>
+
+                                <i class="fa-solid fa-file-pdf"></i>
+
+                                Machine Manual
+
+                            </span>
+
+
+                            <i class="fa-solid fa-chevron-right"></i>
+
+                        </button>
+
+
+                        <button
+                            class="document-btn"
+                            onclick="documentNotAvailable('PM Checklist')"
+                        >
+
+                            <span>
+
+                                <i class="fa-solid fa-file-pdf"></i>
+
+                                PM Checklist
+
+                            </span>
+
+
+                            <i class="fa-solid fa-chevron-right"></i>
+
+                        </button>
+
+
+                        <button
+                            class="document-btn full"
+                            onclick="documentNotAvailable('Warranty Details')"
+                        >
+
+                            <span>
+
+                                <i class="fa-solid fa-file-pdf"></i>
+
+                                Warranty Details
+
+                            </span>
+
+
+                            <i class="fa-solid fa-chevron-right"></i>
+
+                        </button>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 CONTACT
+            ================================================== -->
+
+            <section class="detail-card">
+
+
+                <div class="detail-card-header">
+
+
+                    <span class="card-icon">
+
+                        <i class="fa-solid fa-phone"></i>
+
+                    </span>
+
+
+                    CONTACT
+
+
+                </div>
+
+
+                <div class="detail-card-body">
+
+
+                    <div class="contact-row">
+
+
+                        <small>
+                            Maintenance Incharge
+                        </small>
+
+
+                        <strong>
+                            Pramod
+                        </strong>
+
+
+                        <div class="contact-number">
+
+                            <i class="fa-solid fa-phone"></i>
+
+                            To be updated
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="contact-row">
+
+
+                        <small>
+                            Supplier / OEM Contact
+                        </small>
+
+
+                        <strong>
+                            +91 2827 252358
+                        </strong>
+
+
+                        <div class="contact-number">
+
+                            <i class="fa-solid fa-phone"></i>
+
+                            +91 2827 253381
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="contact-row">
+
+
+                        <small>
+                            Warranty
+                        </small>
+
+
+                        <strong>
+                            To be updated
+                        </strong>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             FLOATING QR
+        ================================================== -->
+
+        <button
+            class="qr-floating"
+            onclick="showMachineQR()"
+            title="Machine QR"
+        >
+
+            <i class="fa-solid fa-qrcode"></i>
+
+        </button>
+
+
+
+        <!-- =================================================
+             QR MODAL
+        ================================================== -->
+
+        <div
+            class="qr-overlay"
+            id="qrOverlay"
+        >
+
+            <div class="qr-modal">
+
+
+                <h3>
+                    400 TON PRESS MACHINE
+                </h3>
+
+
+                <p>
+                    Scan this QR to open the machine dashboard.
+                </p>
+
+
+                <div id="generatedQRCode"></div>
+
+
+                <br>
+
+
+                <button
+                    class="qr-close"
+                    onclick="hideMachineQR()"
+                >
+
+                    Close
+
+                </button>
+
+
+            </div>
+
+
+        </div>
 
     `;
 
+}
 
-    container.appendChild(
-        placeholder
+
+/* =========================================================
+   BACK TO FACTORY MAP
+========================================================= */
+
+function goBackToFactoryMap() {
+
+    const baseUrl =
+        window.location.origin +
+        window.location.pathname;
+
+    window.location.href =
+        baseUrl;
+
+}
+
+
+/* =========================================================
+   REPORT ISSUE
+========================================================= */
+
+function reportIssue() {
+
+    alert(
+        "Machine issue reporting will be connected in a future version."
     );
 
 }
 
 
 /* =========================================================
-   MOBILE NAVIGATION
+   DOCUMENTS
 ========================================================= */
 
-function setupNavigation() {
+function documentNotAvailable(
+    documentName
+) {
 
-    const navItems =
-        document.querySelectorAll(
-            ".nav-item"
-        );
-
-
-    navItems.forEach(function(item) {
-
-        item.addEventListener(
-            "click",
-            function() {
-
-                navItems.forEach(
-                    function(nav) {
-
-                        nav.classList.remove(
-                            "active"
-                        );
-
-                    }
-                );
-
-
-                item.classList.add(
-                    "active"
-                );
-
-
-                /*
-                 * On smaller screens,
-                 * keep navigation usable.
-                 */
-
-                if (
-                    window.innerWidth <= 850
-                ) {
-
-                    const sidebar =
-                        document.getElementById(
-                            "sidebar"
-                        );
-
-                    if (sidebar) {
-
-                        sidebar.classList.add(
-                            "collapsed"
-                        );
-
-                    }
-
-                }
-
-            }
-        );
-
-    });
+    alert(
+        documentName +
+        " will be added here when the document is available."
+    );
 
 }
 
 
 /* =========================================================
-   ESC KEY
+   MACHINE IMAGE FALLBACK
 ========================================================= */
 
-function setupKeyboardControls() {
+function machineImageFallback(
+    image
+) {
 
-    document.addEventListener(
-        "keydown",
-        function(event) {
+    image.style.display =
+        "none";
 
-            if (event.key === "Escape") {
+}
 
-                hideModal();
 
-            }
+/* =========================================================
+   MACHINE QR
+========================================================= */
+
+function showMachineQR() {
+
+    const overlay =
+        document.getElementById(
+            "qrOverlay"
+        );
+
+
+    const qrContainer =
+        document.getElementById(
+            "generatedQRCode"
+        );
+
+
+    if (!overlay || !qrContainer) {
+
+        return;
+
+    }
+
+
+    overlay.classList.add(
+        "show"
+    );
+
+
+    /*
+       Public GitHub Pages URL
+       for the 400 Ton dashboard.
+    */
+
+    const publicUrl =
+        "https://rohanlandge6128.github.io/400-ton-press-machine/?machine=21013";
+
+
+    qrContainer.innerHTML =
+        "";
+
+
+    /*
+       Load QRCode library if necessary.
+    */
+
+    if (
+        typeof QRCode ===
+        "undefined"
+    ) {
+
+
+        const script =
+            document.createElement(
+                "script"
+            );
+
+
+        script.src =
+            "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js";
+
+
+        script.onload =
+            function() {
+
+                createQRCode(
+                    qrContainer,
+                    publicUrl
+                );
+
+            };
+
+
+        document.head.appendChild(
+            script
+        );
+
+
+    } else {
+
+
+        createQRCode(
+            qrContainer,
+            publicUrl
+        );
+
+
+    }
+
+}
+
+
+/* =========================================================
+   CREATE QR
+========================================================= */
+
+function createQRCode(
+    container,
+    url
+) {
+
+    container.innerHTML =
+        "";
+
+
+    new QRCode(
+        container,
+        {
+
+            text: url,
+
+            width: 210,
+
+            height: 210,
+
+            colorDark:
+                "#005C98",
+
+            colorLight:
+                "#FFFFFF",
+
+            correctLevel:
+                QRCode.CorrectLevel.H
 
         }
     );
@@ -422,16 +1499,126 @@ function setupKeyboardControls() {
 
 
 /* =========================================================
-   INITIALIZATION
+   CLOSE QR
+========================================================= */
+
+function hideMachineQR() {
+
+    const overlay =
+        document.getElementById(
+            "qrOverlay"
+        );
+
+
+    if (overlay) {
+
+        overlay.classList.remove(
+            "show"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   CLICK OUTSIDE MACHINE POPUP
+========================================================= */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+
+        const popup =
+            document.getElementById(
+                "machinePopup"
+            );
+
+
+        if (
+            popup &&
+            popup.classList.contains(
+                "show"
+            ) &&
+            event.target === popup
+        ) {
+
+            closeMachinePopup();
+
+        }
+
+
+    }
+);
+
+
+/* =========================================================
+   CLICK OUTSIDE QR
+========================================================= */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+
+        const overlay =
+            document.getElementById(
+                "qrOverlay"
+            );
+
+
+        if (
+            overlay &&
+            overlay.classList.contains(
+                "show"
+            ) &&
+            event.target === overlay
+        ) {
+
+            hideMachineQR();
+
+        }
+
+
+    }
+);
+
+
+/* =========================================================
+   ESC KEY
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            closeMachinePopup();
+
+            hideMachineQR();
+
+        }
+
+
+    }
+);
+
+
+/* =========================================================
+   PAGE LOAD
 ========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
     function() {
 
-        setupNavigation();
-
-        setupKeyboardControls();
+        loadPage();
 
     }
 );
