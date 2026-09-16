@@ -284,7 +284,6 @@ function renderMachineDashboard() {
 
                     </span>
 
-
                     <i class="fa-solid fa-chevron-right"></i>
 
                 </button>
@@ -450,7 +449,6 @@ function renderMachineDashboard() {
 
 
                 <div class="detail-card-body">
-
 
                     <div class="machine-specs">
 
@@ -706,6 +704,7 @@ function renderMachineDashboard() {
 
                         </div>
 
+
                     </div>
 
                 </div>
@@ -917,15 +916,14 @@ function renderMachineDashboard() {
 
                         </div>
 
+
                     </div>
 
                 </div>
 
             </section>
-
-
-            <!-- =================================================
-                 3. DOCUMENTS + COMPLIANCE
+                        <!-- =================================================
+                 3. DOCUMENTS
             ================================================== -->
 
             <section class="detail-card documents-card">
@@ -951,14 +949,14 @@ function renderMachineDashboard() {
 
                         <button
                             class="document-btn"
-                            onclick="documentNotAvailable('User / Operation Manual')"
+                            onclick="documentNotAvailable('Machine Manual')"
                         >
 
                             <span>
 
                                 <i class="fa-solid fa-file-pdf"></i>
 
-                                User / Operation Manual
+                                Machine Manual
 
                             </span>
 
@@ -969,14 +967,14 @@ function renderMachineDashboard() {
 
                         <button
                             class="document-btn"
-                            onclick="documentNotAvailable('Maintenance Manual')"
+                            onclick="documentNotAvailable('Electrical Drawing')"
                         >
 
                             <span>
 
                                 <i class="fa-solid fa-file-pdf"></i>
 
-                                Maintenance Manual
+                                Electrical Drawing
 
                             </span>
 
@@ -987,14 +985,32 @@ function renderMachineDashboard() {
 
                         <button
                             class="document-btn"
-                            onclick="documentNotAvailable('Electric / Hydraulic Safety Diagram')"
+                            onclick="documentNotAvailable('Hydraulic / Pneumatic Drawing')"
                         >
 
                             <span>
 
                                 <i class="fa-solid fa-file-pdf"></i>
 
-                                Electric / Hydraulic Safety Diagram
+                                Hydraulic / Pneumatic Drawing
+
+                            </span>
+
+                            <i class="fa-solid fa-chevron-right"></i>
+
+                        </button>
+
+
+                        <button
+                            class="document-btn"
+                            onclick="documentNotAvailable('Spare Parts List')"
+                        >
+
+                            <span>
+
+                                <i class="fa-solid fa-file-pdf"></i>
+
+                                Spare Parts List
 
                             </span>
 
@@ -1038,10 +1054,13 @@ function renderMachineDashboard() {
 
                         </button>
 
+
                     </div>
 
 
-                    <!-- COMPLIANCE -->
+                    <!-- =================================================
+                         COMPLIANCE
+                    ================================================== -->
 
                     <div class="subsection-heading">
 
@@ -1093,6 +1112,7 @@ function renderMachineDashboard() {
 
                         </div>
 
+
                     </div>
 
                 </div>
@@ -1104,7 +1124,11 @@ function renderMachineDashboard() {
                  4. MACHINE FINANCIALS
             ================================================== -->
 
-            <section class="detail-card financial-card">
+            <section
+                class="detail-card financial-card"
+                onclick="openMachineFinancials()"
+                style="cursor: pointer;"
+            >
 
                 <div class="detail-card-header">
 
@@ -1115,6 +1139,11 @@ function renderMachineDashboard() {
                     </span>
 
                     MACHINE FINANCIALS
+
+                    <i
+                        class="fa-solid fa-chevron-right"
+                        style="margin-left: auto;"
+                    ></i>
 
                 </div>
 
@@ -1138,7 +1167,7 @@ function renderMachineDashboard() {
                             </strong>
 
                             <span>
-                                To be updated
+                                View Machine Financials
                             </span>
 
                         </div>
@@ -1170,7 +1199,6 @@ function renderMachineDashboard() {
 
 
                 <div class="detail-card-body">
-
 
                     <span class="field-label">
                         PPE REQUIRED
@@ -1258,6 +1286,7 @@ function renderMachineDashboard() {
 
                         </div>
 
+
                     </div>
 
 
@@ -1301,6 +1330,7 @@ function renderMachineDashboard() {
 
                         </div>
 
+
                     </div>
 
                 </div>
@@ -1328,7 +1358,6 @@ function renderMachineDashboard() {
 
 
                 <div class="detail-card-body">
-
 
                     <div class="production-body">
 
@@ -1392,6 +1421,7 @@ function renderMachineDashboard() {
                                 </span>
 
                             </div>
+
 
                         </div>
 
@@ -1459,6 +1489,7 @@ function renderMachineDashboard() {
 
                                 </div>
 
+
                             </div>
 
                         </div>
@@ -1494,16 +1525,13 @@ function renderMachineDashboard() {
 
                     <div class="contact-row">
 
-
                         <small>
                             Maintenance In-charge
                         </small>
 
-
                         <strong>
                             Pramod
                         </strong>
-
 
                         <div class="contact-number">
 
@@ -1518,16 +1546,13 @@ function renderMachineDashboard() {
 
                     <div class="contact-row">
 
-
                         <small>
                             Supplier / OEM Contact
                         </small>
 
-
                         <strong>
                             +91 2827 252358
                         </strong>
-
 
                         <div class="contact-number">
 
@@ -1542,11 +1567,9 @@ function renderMachineDashboard() {
 
                     <div class="contact-row">
 
-
                         <small>
                             EMERGENCY CONTACT NUMBER
                         </small>
-
 
                         <strong>
                             To be updated
@@ -1554,9 +1577,11 @@ function renderMachineDashboard() {
 
                     </div>
 
+
                 </div>
 
             </section>
+
 
         </div>
 
@@ -1609,6 +1634,7 @@ function renderMachineDashboard() {
             </div>
 
         </div>
+
 
     `;
 }
@@ -1744,6 +1770,7 @@ function createQRCode(
     new QRCode(
         container,
         {
+
             text: url,
 
             width: 210,
@@ -1756,6 +1783,7 @@ function createQRCode(
 
             correctLevel:
                 QRCode.CorrectLevel.H
+
         }
     );
 }
@@ -1771,6 +1799,7 @@ function hideMachineQR() {
         document.getElementById(
             "qrOverlay"
         );
+
 
     if (overlay) {
 
@@ -1867,6 +1896,1175 @@ document.addEventListener(
     function () {
 
         loadPage();
+
+    }
+);
+
+
+/* =========================================================
+   MACHINE FINANCIALS
+   ADD-ON ONLY
+   Asset: 21013 / P-05
+========================================================= */
+
+
+/* =========================================================
+   FINANCIAL ACCESS KEY
+========================================================= */
+
+/*
+   Change this value to the access key you want to use.
+
+   IMPORTANT:
+   This is UI-level protection only.
+   A key stored in JavaScript is NOT true server-side security.
+*/
+
+const MACHINE_FINANCIAL_ACCESS_KEY = "PPPL21013";
+
+
+/* =========================================================
+   OPEN MACHINE FINANCIALS
+========================================================= */
+
+function openMachineFinancials() {
+
+    let overlay =
+        document.getElementById(
+            "financialAccessOverlay"
+        );
+
+
+    if (!overlay) {
+
+        createFinancialAccessPopup();
+
+        overlay =
+            document.getElementById(
+                "financialAccessOverlay"
+            );
+
+    }
+
+
+    const input =
+        document.getElementById(
+            "financialAccessKey"
+        );
+
+
+    const error =
+        document.getElementById(
+            "financialAccessError"
+        );
+
+
+    if (input) {
+
+        input.value = "";
+
+    }
+
+
+    if (error) {
+
+        error.classList.remove(
+            "show"
+        );
+
+    }
+
+
+    overlay.classList.add("show");
+
+
+    setTimeout(
+        function () {
+
+            if (input) {
+
+                input.focus();
+
+            }
+
+        },
+        100
+    );
+
+}
+
+
+/* =========================================================
+   CREATE ACCESS KEY POPUP
+========================================================= */
+
+function createFinancialAccessPopup() {
+
+    if (
+        document.getElementById(
+            "financialAccessOverlay"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    const overlay =
+        document.createElement("div");
+
+
+    overlay.id =
+        "financialAccessOverlay";
+
+
+    overlay.className =
+        "financial-access-overlay";
+
+
+    overlay.innerHTML = `
+
+        <div
+            class="financial-access-card"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="financialAccessTitle"
+        >
+
+            <button
+                type="button"
+                class="financial-access-close"
+                onclick="closeFinancialAccessPopup()"
+                aria-label="Close"
+            >
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+
+            <div class="financial-access-icon">
+
+                <i class="fa-solid fa-lock"></i>
+
+            </div>
+
+
+            <h2
+                id="financialAccessTitle"
+                class="financial-access-title"
+            >
+                MACHINE FINANCIALS
+            </h2>
+
+
+            <p class="financial-access-description">
+
+                Financial information for Asset ID 21013
+                is restricted. Enter the authorized
+                access key to continue.
+
+            </p>
+
+
+            <label
+                class="financial-access-label"
+                for="financialAccessKey"
+            >
+                Access Key
+            </label>
+
+
+            <input
+                type="password"
+                id="financialAccessKey"
+                class="financial-access-input"
+                placeholder="Enter access key"
+                autocomplete="off"
+                onkeydown="handleFinancialKeyPress(event)"
+            >
+
+
+            <div
+                id="financialAccessError"
+                class="financial-access-error"
+            >
+                Invalid access key. Please try again.
+            </div>
+
+
+            <div class="financial-access-actions">
+
+                <button
+                    type="button"
+                    class="financial-access-cancel"
+                    onclick="closeFinancialAccessPopup()"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="button"
+                    class="financial-access-submit"
+                    onclick="validateFinancialAccessKey()"
+                >
+
+                    <i class="fa-solid fa-unlock"></i>
+
+                    &nbsp;
+
+                    Verify Access
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    document.body.appendChild(
+        overlay
+    );
+
+
+    overlay.addEventListener(
+        "click",
+        function (event) {
+
+            if (
+                event.target === overlay
+            ) {
+
+                closeFinancialAccessPopup();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE ACCESS POPUP
+========================================================= */
+
+function closeFinancialAccessPopup() {
+
+    const overlay =
+        document.getElementById(
+            "financialAccessOverlay"
+        );
+
+
+    if (!overlay) {
+
+        return;
+
+    }
+
+
+    overlay.classList.remove("show");
+
+}
+
+
+/* =========================================================
+   ENTER KEY
+========================================================= */
+
+function handleFinancialKeyPress(event) {
+
+    if (
+        event.key === "Enter"
+    ) {
+
+        event.preventDefault();
+
+        validateFinancialAccessKey();
+
+    }
+
+}
+
+
+/* =========================================================
+   VALIDATE ACCESS KEY
+========================================================= */
+
+function validateFinancialAccessKey() {
+
+    const input =
+        document.getElementById(
+            "financialAccessKey"
+        );
+
+
+    const error =
+        document.getElementById(
+            "financialAccessError"
+        );
+
+
+    if (!input) {
+
+        return;
+
+    }
+
+
+    const enteredKey =
+        input.value.trim();
+
+
+    if (
+        enteredKey ===
+        MACHINE_FINANCIAL_ACCESS_KEY
+    ) {
+
+        if (error) {
+
+            error.classList.remove(
+                "show"
+            );
+
+        }
+
+
+        closeFinancialAccessPopup();
+
+
+        openFinancialDashboard();
+
+
+        return;
+
+    }
+
+
+    if (error) {
+
+        error.classList.add(
+            "show"
+        );
+
+    }
+
+
+    input.value = "";
+
+    input.focus();
+
+}
+/* =========================================================
+   FINANCIAL DASHBOARD
+========================================================= */
+
+function openFinancialDashboard() {
+
+    const machineDashboard =
+        document.getElementById(
+            "machineDashboardPage"
+        );
+
+    if (machineDashboard) {
+
+        machineDashboard.style.display =
+            "none";
+
+    }
+
+
+    const factoryMap =
+        document.getElementById(
+            "factoryMapPage"
+        );
+
+    if (factoryMap) {
+
+        factoryMap.style.display =
+            "none";
+
+    }
+
+
+    let financialPage =
+        document.getElementById(
+            "machineFinancialsPage"
+        );
+
+
+    if (!financialPage) {
+
+        financialPage =
+            document.createElement(
+                "section"
+            );
+
+        financialPage.id =
+            "machineFinancialsPage";
+
+        financialPage.className =
+            "machine-financials-page";
+
+
+        const mainContent =
+            document.querySelector(
+                ".main-content"
+            );
+
+
+        if (mainContent) {
+
+            mainContent.appendChild(
+                financialPage
+            );
+
+        }
+
+    }
+
+
+    renderMachineFinancials();
+
+
+    financialPage.style.display =
+        "block";
+
+
+    window.scrollTo(
+        0,
+        0
+    );
+
+}
+
+
+/* =========================================================
+   RENDER MACHINE FINANCIALS
+========================================================= */
+
+function renderMachineFinancials() {
+
+    const container =
+        document.getElementById(
+            "machineFinancialsPage"
+        );
+
+
+    if (!container) {
+
+        return;
+
+    }
+
+
+    container.innerHTML = `
+
+        <div class="financial-hero">
+
+            <div class="financial-hero-top">
+
+                <button
+                    class="financial-back"
+                    onclick="closeMachineFinancials()"
+                    title="Back to Machine Dashboard"
+                >
+
+                    <i class="fa-solid fa-chevron-left"></i>
+
+                </button>
+
+
+                <h1 class="financial-title">
+
+                    MACHINE FINANCIALS
+
+                </h1>
+
+            </div>
+
+
+            <div class="financial-subtitle">
+
+                Financial overview for
+
+                400 TON PRESS MACHINE
+
+            </div>
+
+
+            <div class="financial-machine-info">
+
+
+                <div class="financial-machine-item">
+
+                    <span class="financial-machine-label">
+
+                        Asset ID
+
+                    </span>
+
+
+                    <span class="financial-machine-value">
+
+                        21013
+
+                    </span>
+
+                </div>
+
+
+
+                <div class="financial-machine-item">
+
+                    <span class="financial-machine-label">
+
+                        Machine
+
+                    </span>
+
+
+                    <span class="financial-machine-value">
+
+                        400 TON PRESS MACHINE
+
+                    </span>
+
+                </div>
+
+
+
+                <div class="financial-machine-item">
+
+                    <span class="financial-machine-label">
+
+                        Machine ID
+
+                    </span>
+
+
+                    <span class="financial-machine-value">
+
+                        P-05
+
+                    </span>
+
+                </div>
+
+
+
+                <div class="financial-machine-item">
+
+                    <span class="financial-machine-label">
+
+                        Type
+
+                    </span>
+
+
+                    <span class="financial-machine-value">
+
+                        Mechanical Press
+
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             FINANCIAL SUMMARY
+        ================================================== -->
+
+        <div class="financial-summary-grid">
+
+
+            <div class="financial-summary-card">
+
+                <div class="financial-summary-label">
+
+                    Asset Value
+
+                </div>
+
+
+                <div class="financial-summary-value">
+
+                    —
+
+                </div>
+
+
+                <div class="financial-summary-note">
+
+                    Financial data
+
+                </div>
+
+            </div>
+
+
+
+            <div class="financial-summary-card">
+
+                <div class="financial-summary-label">
+
+                    Annual Operating Cost
+
+                </div>
+
+
+                <div class="financial-summary-value">
+
+                    —
+
+                </div>
+
+
+                <div class="financial-summary-note">
+
+                    Financial data
+
+                </div>
+
+            </div>
+
+
+
+            <div class="financial-summary-card">
+
+                <div class="financial-summary-label">
+
+                    Annual Revenue
+
+                </div>
+
+
+                <div class="financial-summary-value">
+
+                    —
+
+                </div>
+
+
+                <div class="financial-summary-note">
+
+                    Financial data
+
+                </div>
+
+            </div>
+
+
+
+            <div class="financial-summary-card">
+
+                <div class="financial-summary-label">
+
+                    Financial Status
+
+                </div>
+
+
+                <div class="financial-summary-value">
+
+                    <span
+                        class="financial-status financial-status-active"
+                    >
+
+                        ACTIVE
+
+                    </span>
+
+                </div>
+
+
+                <div class="financial-summary-note">
+
+                    Asset 21013
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             FINANCIAL CONTENT
+        ================================================== -->
+
+        <div class="financial-content-grid">
+
+
+            <!-- INVESTMENT -->
+
+            <section class="financial-card">
+
+                <div class="financial-card-header">
+
+                    <h2 class="financial-card-title">
+
+                        INVESTMENT DETAILS
+
+                    </h2>
+
+                </div>
+
+
+                <div class="financial-card-body">
+
+                    <div class="financial-detail-list">
+
+
+                        <div class="financial-detail-row">
+
+                            <span class="financial-detail-label">
+
+                                Purchase Cost
+
+                            </span>
+
+
+                            <span class="financial-detail-value">
+
+                                —
+
+                            </span>
+
+                        </div>
+
+
+
+                        <div class="financial-detail-row">
+
+                            <span class="financial-detail-label">
+
+                                Installation Cost
+
+                            </span>
+
+
+                            <span class="financial-detail-value">
+
+                                —
+
+                            </span>
+
+                        </div>
+
+
+
+                        <div class="financial-detail-row">
+
+                            <span class="financial-detail-label">
+
+                                Current Book Value
+
+                            </span>
+
+
+                            <span class="financial-detail-value">
+
+                                —
+
+                            </span>
+
+                        </div>
+
+
+
+                        <div class="financial-detail-row">
+
+                            <span class="financial-detail-label">
+
+                                Depreciation
+
+                            </span>
+
+
+                            <span class="financial-detail-value">
+
+                                —
+
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- OPERATING COST -->
+
+            <section class="financial-card">
+
+                <div class="financial-card-header">
+
+                    <h2 class="financial-card-title">
+
+                        OPERATING COST
+
+                    </h2>
+
+                </div>
+
+
+                <div class="financial-card-body">
+
+                    <div class="financial-detail-list">
+
+
+                        <div class="financial-detail-row">
+
+                            <span class="financial-detail-label">
+
+                                Electricity Cost
+
+                            </span>
+
+
+                            <span class="financial-detail-value">
+
+                                —
+
+                            </span>
+
+                        </div>
+
+
+
+                        <div class="financial-detail-row">
+
+                            <span class="financial-detail-label">
+
+                                Maintenance Cost
+
+                            </span>
+
+
+                            <span class="financial-detail-value">
+
+                                —
+
+                            </span>
+
+                        </div>
+
+
+
+                        <div class="financial-detail-row">
+
+                            <span class="financial-detail-label">
+
+                                Labour Cost
+
+                            </span>
+
+
+                            <span class="financial-detail-value">
+
+                                —
+
+                            </span>
+
+                        </div>
+
+
+
+                        <div class="financial-detail-row">
+
+                            <span class="financial-detail-label">
+
+                                Other Operating Cost
+
+                            </span>
+
+
+                            <span class="financial-detail-value">
+
+                                —
+
+                            </span>
+
+                        </div>
+
+
+
+                        <div class="financial-total-row">
+
+                            <span class="financial-total-label">
+
+                                Total Operating Cost
+
+                            </span>
+
+
+                            <span class="financial-total-value">
+
+                                —
+
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- PRODUCTION FINANCIALS -->
+
+            <section class="financial-card financial-card-full">
+
+                <div class="financial-card-header">
+
+                    <h2 class="financial-card-title">
+
+                        PRODUCTION FINANCIALS
+
+                    </h2>
+
+                </div>
+
+
+                <div class="financial-card-body">
+
+                    <table class="financial-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+
+                                    Metric
+
+                                </th>
+
+
+                                <th>
+
+                                    Value
+
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+
+                            <tr>
+
+                                <td>
+
+                                    Production Capacity
+
+                                </td>
+
+
+                                <td>
+
+                                    —
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <tr>
+
+                                <td>
+
+                                    Production Output
+
+                                </td>
+
+
+                                <td>
+
+                                    —
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <tr>
+
+                                <td>
+
+                                    Revenue Generated
+
+                                </td>
+
+
+                                <td>
+
+                                    —
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <tr>
+
+                                <td>
+
+                                    Cost Per Unit
+
+                                </td>
+
+
+                                <td>
+
+                                    —
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <tr>
+
+                                <td>
+
+                                    Profit Contribution
+
+                                </td>
+
+
+                                <td>
+
+                                    —
+
+                                </td>
+
+                            </tr>
+
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   CLOSE MACHINE FINANCIALS
+========================================================= */
+
+function closeMachineFinancials() {
+
+    const financialPage =
+        document.getElementById(
+            "machineFinancialsPage"
+        );
+
+
+    if (financialPage) {
+
+        financialPage.style.display =
+            "none";
+
+    }
+
+
+    /*
+       Show the existing machine dashboard again.
+    */
+
+    const machineDashboard =
+        document.getElementById(
+            "machineDashboardPage"
+        );
+
+
+    if (machineDashboard) {
+
+        machineDashboard.style.display =
+            "block";
+
+    }
+
+
+    window.scrollTo(
+        0,
+        0
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE FINANCIAL POPUP WITH ESCAPE
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (
+            event.key !== "Escape"
+        ) {
+
+            return;
+
+        }
+
+
+        const overlay =
+            document.getElementById(
+                "financialAccessOverlay"
+            );
+
+
+        if (
+            overlay &&
+            overlay.classList.contains("show")
+        ) {
+
+            closeFinancialAccessPopup();
+
+        }
 
     }
 );

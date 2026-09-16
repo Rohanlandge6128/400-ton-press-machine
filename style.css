@@ -4919,3 +4919,945 @@ body.sidebar-collapsed .main-content {
     }
 
 }
+/* =========================================================
+   MACHINE FINANCIALS
+   ADD-ON STYLES ONLY
+   Existing dashboard styles remain unchanged.
+========================================================= */
+
+
+/* =========================================================
+   FINANCIALS ACCESS KEY POPUP
+========================================================= */
+
+.financial-access-overlay {
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background: rgba(0, 0, 0, 0.55);
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    z-index: 9999;
+
+}
+
+
+.financial-access-overlay.show {
+
+    display: flex;
+
+}
+
+
+/* ACCESS CARD */
+
+.financial-access-card {
+
+    width: 420px;
+    max-width: calc(100% - 40px);
+
+    background: #ffffff;
+
+    border-radius: 12px;
+
+    padding: 30px;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.25);
+
+    position: relative;
+
+    animation: financialPopupIn 0.2s ease;
+
+}
+
+
+@keyframes financialPopupIn {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(10px) scale(0.98);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0) scale(1);
+
+    }
+
+}
+
+
+/* CLOSE BUTTON */
+
+.financial-access-close {
+
+    position: absolute;
+
+    top: 15px;
+    right: 15px;
+
+    width: 34px;
+    height: 34px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #777;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+    border-radius: 6px;
+
+}
+
+
+.financial-access-close:hover {
+
+    background: #f1f1f1;
+
+    color: #222;
+
+}
+
+
+/* ICON */
+
+.financial-access-icon {
+
+    width: 54px;
+    height: 54px;
+
+    border-radius: 50%;
+
+    background: #eef4ff;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 18px;
+
+    color: #2457a6;
+
+    font-size: 22px;
+
+}
+
+
+/* TITLE */
+
+.financial-access-title {
+
+    margin: 0 0 8px 0;
+
+    font-size: 22px;
+
+    font-weight: 700;
+
+    color: #1f2937;
+
+}
+
+
+/* DESCRIPTION */
+
+.financial-access-description {
+
+    margin: 0 0 22px 0;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+    color: #6b7280;
+
+}
+
+
+/* LABEL */
+
+.financial-access-label {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: #374151;
+
+}
+
+
+/* INPUT */
+
+.financial-access-input {
+
+    width: 100%;
+
+    height: 44px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 7px;
+
+    padding: 0 13px;
+
+    font-size: 14px;
+
+    color: #1f2937;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+
+}
+
+
+.financial-access-input:focus {
+
+    border-color: #2457a6;
+
+    box-shadow:
+        0 0 0 3px rgba(36, 87, 166, 0.10);
+
+}
+
+
+/* ERROR MESSAGE */
+
+.financial-access-error {
+
+    display: none;
+
+    margin-top: 8px;
+
+    font-size: 13px;
+
+    color: #dc2626;
+
+}
+
+
+.financial-access-error.show {
+
+    display: block;
+
+}
+
+
+/* BUTTON ROW */
+
+.financial-access-actions {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 22px;
+
+}
+
+
+/* CANCEL BUTTON */
+
+.financial-access-cancel {
+
+    height: 42px;
+
+    padding: 0 18px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 7px;
+
+    background: #ffffff;
+
+    color: #374151;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+}
+
+
+.financial-access-cancel:hover {
+
+    background: #f9fafb;
+
+}
+
+
+/* VERIFY BUTTON */
+
+.financial-access-submit {
+
+    height: 42px;
+
+    padding: 0 20px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #2457a6;
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+}
+
+
+.financial-access-submit:hover {
+
+    background: #1d4788;
+
+}
+
+
+/* =========================================================
+   MACHINE FINANCIALS PAGE
+========================================================= */
+
+.machine-financials-page {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding-bottom: 40px;
+
+}
+
+
+/* FINANCIAL HERO */
+
+.financial-hero {
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 12px;
+
+    padding: 26px 30px;
+
+    margin-bottom: 22px;
+
+}
+
+
+.financial-hero-top {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+}
+
+
+.financial-back {
+
+    width: 38px;
+    height: 38px;
+
+    border: 1px solid #d1d5db;
+
+    background: #ffffff;
+
+    border-radius: 7px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    color: #374151;
+
+}
+
+
+.financial-back:hover {
+
+    background: #f5f6f8;
+
+}
+
+
+.financial-title {
+
+    margin: 0;
+
+    font-size: 25px;
+
+    font-weight: 700;
+
+    color: #1f2937;
+
+}
+
+
+.financial-subtitle {
+
+    margin: 10px 0 0 52px;
+
+    font-size: 14px;
+
+    color: #6b7280;
+
+}
+
+
+/* MACHINE IDENTIFICATION */
+
+.financial-machine-info {
+
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 12px 28px;
+
+    margin-top: 20px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid #eeeeee;
+
+}
+
+
+.financial-machine-item {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+
+}
+
+
+.financial-machine-label {
+
+    font-size: 11px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+
+    color: #8a8f98;
+
+    font-weight: 600;
+
+}
+
+
+.financial-machine-value {
+
+    font-size: 14px;
+
+    color: #252a31;
+
+    font-weight: 600;
+
+}
+
+
+/* =========================================================
+   FINANCIAL SUMMARY CARDS
+========================================================= */
+
+.financial-summary-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 18px;
+
+    margin-bottom: 22px;
+
+}
+
+
+.financial-summary-card {
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 10px;
+
+    padding: 20px;
+
+    min-height: 115px;
+
+    box-sizing: border-box;
+
+}
+
+
+.financial-summary-label {
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    color: #737984;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.35px;
+
+}
+
+
+.financial-summary-value {
+
+    margin-top: 10px;
+
+    font-size: 25px;
+
+    line-height: 1.2;
+
+    font-weight: 700;
+
+    color: #20242a;
+
+}
+
+
+.financial-summary-note {
+
+    margin-top: 7px;
+
+    font-size: 12px;
+
+    color: #8a8f98;
+
+}
+
+
+/* =========================================================
+   FINANCIAL CONTENT GRID
+========================================================= */
+
+.financial-content-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+    gap: 20px;
+
+}
+
+
+/* FINANCIAL CARD */
+
+.financial-card {
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+}
+
+
+.financial-card-header {
+
+    padding: 18px 20px;
+
+    border-bottom: 1px solid #eeeeee;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+}
+
+
+.financial-card-title {
+
+    margin: 0;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    color: #252a31;
+
+}
+
+
+.financial-card-body {
+
+    padding: 20px;
+
+}
+
+
+/* =========================================================
+   FINANCIAL TABLE
+========================================================= */
+
+.financial-table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+}
+
+
+.financial-table th {
+
+    text-align: left;
+
+    padding: 11px 10px;
+
+    font-size: 11px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.4px;
+
+    color: #7b818a;
+
+    font-weight: 700;
+
+    border-bottom: 1px solid #e5e7eb;
+
+}
+
+
+.financial-table td {
+
+    padding: 13px 10px;
+
+    font-size: 13px;
+
+    color: #343a40;
+
+    border-bottom: 1px solid #f0f1f2;
+
+}
+
+
+.financial-table tr:last-child td {
+
+    border-bottom: none;
+
+}
+
+
+.financial-table td:last-child,
+.financial-table th:last-child {
+
+    text-align: right;
+
+}
+
+
+/* =========================================================
+   FINANCIAL DETAIL ROWS
+========================================================= */
+
+.financial-detail-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+
+.financial-detail-row {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 13px 0;
+
+    border-bottom: 1px solid #f0f1f2;
+
+}
+
+
+.financial-detail-row:last-child {
+
+    border-bottom: none;
+
+}
+
+
+.financial-detail-label {
+
+    font-size: 13px;
+
+    color: #6b7280;
+
+}
+
+
+.financial-detail-value {
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    color: #252a31;
+
+    text-align: right;
+
+}
+
+
+/* =========================================================
+   FINANCIAL TOTAL
+========================================================= */
+
+.financial-total-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding-top: 17px;
+
+    margin-top: 7px;
+
+    border-top: 2px solid #e5e7eb;
+
+}
+
+
+.financial-total-label {
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    color: #252a31;
+
+}
+
+
+.financial-total-value {
+
+    font-size: 19px;
+
+    font-weight: 700;
+
+    color: #252a31;
+
+}
+
+
+/* =========================================================
+   FINANCIAL STATUS BADGES
+========================================================= */
+
+.financial-status {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+}
+
+
+.financial-status-active {
+
+    background: #edf7ef;
+
+    color: #28753a;
+
+}
+
+
+.financial-status-pending {
+
+    background: #fff7e6;
+
+    color: #9a6500;
+
+}
+
+
+/* =========================================================
+   FINANCIAL SECTION FULL WIDTH
+========================================================= */
+
+.financial-card-full {
+
+    grid-column: 1 / -1;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .financial-summary-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+    }
+
+}
+
+
+@media (max-width: 800px) {
+
+    .financial-content-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .financial-card-full {
+
+        grid-column: auto;
+
+    }
+
+    .financial-hero {
+
+        padding: 22px;
+
+    }
+
+    .financial-title {
+
+        font-size: 21px;
+
+    }
+
+}
+
+
+@media (max-width: 560px) {
+
+    .financial-summary-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .financial-access-card {
+
+        padding: 24px;
+
+    }
+
+    .financial-machine-info {
+
+        gap: 15px;
+
+    }
+
+    .financial-detail-row {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 5px;
+
+    }
+
+    .financial-detail-value {
+
+        text-align: left;
+
+    }
+
+    .financial-access-actions {
+
+        flex-direction: column-reverse;
+
+    }
+
+    .financial-access-cancel,
+    .financial-access-submit {
+
+        width: 100%;
+
+    }
+
+}
