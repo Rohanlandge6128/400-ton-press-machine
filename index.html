@@ -3,162 +3,756 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>PPPL Visual Factory</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <!-- Roboto Condensed -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Main stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
+<!-- =========================================================
+     TOP HEADER
+========================================================= -->
+
 <header class="top-header">
-    <button class="menu-button" onclick="toggleSidebar()" aria-label="Toggle menu">
+
+    <button
+        class="menu-button"
+        onclick="toggleSidebar()"
+        aria-label="Toggle menu"
+    >
         <i class="fa-solid fa-bars"></i>
     </button>
+
     <div class="logo-area">
-        <img src="assets/pppl-logo.jpg" alt="PPPL Logo" class="pppl-logo">
+        <img
+            src="assets/pppl-logo.jpg"
+            alt="PPPL Logo"
+            class="pppl-logo"
+        >
     </div>
+
     <div class="brand-area">
-        <span class="brand-title">Visual Factory</span>
+
+        <span class="brand-title">
+            Visual Factory
+        </span>
+
         <span class="brand-divider"></span>
-        <span class="brand-tagline">Safe&nbsp; • &nbsp;Efficient&nbsp; • &nbsp;Together</span>
+
+        <span class="brand-tagline">
+            Safe&nbsp; • &nbsp;Efficient&nbsp; • &nbsp;Together
+        </span>
+
     </div>
+
     <div class="header-status">
+
         <div class="last-updated">
+
             <i class="fa-regular fa-clock"></i>
+
             <div>
                 <span>Last updated</span>
                 <strong>10 Sep 2026&nbsp;&nbsp;11:42 AM</strong>
             </div>
+
         </div>
+
         <div class="live-data">
+
             <span class="live-dot"></span>
+
             <div>
                 <strong>Live Data</strong>
                 <span>(2 min ago)</span>
             </div>
+
         </div>
+
     </div>
+
 </header>
 
+
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
 <aside class="sidebar" id="sidebar">
+
     <div class="sidebar-machine">
-        <div class="sidebar-machine-icon"><i class="fa-solid fa-industry"></i></div>
-        <div class="sidebar-machine-text">
-            <strong>400 TON<br>PRESS MACHINE</strong>
-            <span>Asset ID: 21013</span>
+
+        <div class="sidebar-machine-icon">
+            <i class="fa-solid fa-industry"></i>
         </div>
+
+        <div class="sidebar-machine-text">
+
+            <strong>
+                400 TON<br>
+                PRESS MACHINE
+            </strong>
+
+            <span>
+                Asset ID: 21013
+            </span>
+
+        </div>
+
     </div>
 
+
     <nav class="sidebar-nav">
-        <button class="nav-item" onclick="goHome()"><i class="fa-solid fa-house"></i><span>Home</span></button>
-        <button class="nav-item active" onclick="goFactoryMap()"><i class="fa-solid fa-map"></i><span>Factory Map</span></button>
-        <button class="nav-item"><i class="fa-solid fa-chart-column"></i><span>Overview</span></button>
-        <button class="nav-item"><i class="fa-solid fa-chart-simple"></i><span>Production</span></button>
-        <button class="nav-item"><i class="fa-solid fa-wrench"></i><span>Maintenance</span></button>
-        <button class="nav-item"><i class="fa-solid fa-shield-halved"></i><span>Safety</span></button>
-        <button class="nav-item"><i class="fa-solid fa-file-lines"></i><span>Documents</span></button>
+
+        <button
+            class="nav-item"
+            onclick="goHome()"
+        >
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </button>
+
+
+        <button
+            class="nav-item active"
+            onclick="goFactoryMap()"
+        >
+            <i class="fa-solid fa-map"></i>
+            <span>Factory Map</span>
+        </button>
+
+
+        <button class="nav-item">
+            <i class="fa-solid fa-chart-column"></i>
+            <span>Overview</span>
+        </button>
+
+
+        <button class="nav-item">
+            <i class="fa-solid fa-chart-simple"></i>
+            <span>Production</span>
+        </button>
+
+
+        <button class="nav-item">
+            <i class="fa-solid fa-wrench"></i>
+            <span>Maintenance</span>
+        </button>
+
+
+        <button class="nav-item">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>Safety</span>
+        </button>
+
+
+        <button class="nav-item">
+            <i class="fa-solid fa-file-lines"></i>
+            <span>Documents</span>
+        </button>
+
     </nav>
 
-    <button class="close-menu" onclick="toggleSidebar()">
-        <i class="fa-solid fa-chevron-left"></i><span>Close Menu</span>
+
+    <button
+        class="close-menu"
+        onclick="toggleSidebar()"
+    >
+        <i class="fa-solid fa-chevron-left"></i>
+        <span>Close Menu</span>
     </button>
+
 </aside>
+
+
+<!-- =========================================================
+     MAIN CONTENT
+========================================================= -->
 
 <main class="main-content">
 
-<section id="factoryMapPage" class="factory-page">
-    <div class="factory-heading">
-        <div class="factory-title">
-            <i class="fa-solid fa-location-dot"></i>
-            <div>
-                <h1>Factory Map</h1>
-                <p>Shop Floor - Press Shop 56/11</p>
-            </div>
-        </div>
-        <div class="factory-controls">
-            <div class="shop-selector"><span>Press Shop 56/11</span><i class="fa-solid fa-chevron-down"></i></div>
-            <div class="view-toggle"><button class="selected">2D</button><button>3D</button></div>
-        </div>
-    </div>
 
-    <div class="factory-map-container">
-        <div class="material-flow">
-            <span>Material Flow</span>
-            <i class="fa-solid fa-arrow-right"></i><i class="fa-solid fa-arrow-right"></i>
-            <i class="fa-solid fa-arrow-right"></i><i class="fa-solid fa-arrow-right"></i>
-        </div>
+    <!-- =====================================================
+         FACTORY MAP
+    ====================================================== -->
 
-        <div class="north-indicator"><span>N</span><i class="fa-solid fa-location-arrow"></i></div>
+    <section
+        id="factoryMapPage"
+        class="factory-page"
+    >
 
-        <div class="map-side raw-material">
-            <i class="fa-solid fa-boxes-stacked"></i><strong>Raw Material</strong><span>Storage</span>
-            <i class="fa-solid fa-arrow-left side-arrow"></i>
-        </div>
+        <div class="factory-heading">
 
-        <div class="map-side finished-goods">
-            <i class="fa-solid fa-cube"></i><strong>Finished</strong><span>Goods Area</span>
-            <i class="fa-solid fa-arrow-right side-arrow"></i>
-        </div>
+            <div class="factory-title">
 
-        <div class="factory-floor">
-            <div class="machine-row row-one">
-                <div class="machine-unit disabled-machine" title="P-01 - Not available"><div class="machine-symbol"><i class="fa-solid fa-industry"></i></div><div class="machine-name">P-01</div><span class="machine-status running"></span></div>
-                <div class="machine-unit disabled-machine" title="P-02 - Not available"><div class="machine-symbol"><i class="fa-solid fa-industry"></i></div><div class="machine-name">P-02</div><span class="machine-status running"></span></div>
-                <div class="machine-unit disabled-machine" title="P-03 - Not available"><div class="machine-symbol"><i class="fa-solid fa-industry"></i></div><div class="machine-name">P-03</div><span class="machine-status running"></span></div>
-                <div class="machine-unit disabled-machine" title="P-04 - Not available"><div class="machine-symbol"><i class="fa-solid fa-industry"></i></div><div class="machine-name">P-04</div><span class="machine-status issue"></span></div>
+                <i class="fa-solid fa-location-dot"></i>
+
+                <div>
+
+                    <h1>
+                        Factory Map
+                    </h1>
+
+                    <p>
+                        Shop Floor - Press Shop 56/11
+                    </p>
+
+                </div>
+
             </div>
 
-            <div class="machine-row row-two">
-                <button type="button" class="machine-unit functional-machine" onclick="openMachinePopup()" title="Open P-05 / 400 Ton Press Machine">
-                    <div class="machine-symbol"><i class="fa-solid fa-industry"></i></div><div class="machine-name">P-05</div><span class="machine-status running"></span>
+
+            <div class="factory-controls">
+
+                <div class="shop-selector">
+
+                    <span>
+                        Press Shop 56/11
+                    </span>
+
+                    <i class="fa-solid fa-chevron-down"></i>
+
+                </div>
+
+
+                <div class="view-toggle">
+
+                    <button class="selected">
+                        2D
+                    </button>
+
+                    <button>
+                        3D
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- FACTORY MAP CONTAINER -->
+
+        <div class="factory-map-container">
+
+
+            <div class="material-flow">
+
+                <span>
+                    Material Flow
+                </span>
+
+                <i class="fa-solid fa-arrow-right"></i>
+                <i class="fa-solid fa-arrow-right"></i>
+                <i class="fa-solid fa-arrow-right"></i>
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </div>
+
+
+            <div class="north-indicator">
+
+                <span>N</span>
+
+                <i class="fa-solid fa-location-arrow"></i>
+
+            </div>
+
+
+            <!-- RAW MATERIAL -->
+
+            <div class="map-side raw-material">
+
+                <i class="fa-solid fa-boxes-stacked"></i>
+
+                <strong>
+                    Raw Material
+                </strong>
+
+                <span>
+                    Storage
+                </span>
+
+                <i class="fa-solid fa-arrow-left side-arrow"></i>
+
+            </div>
+
+
+            <!-- FINISHED GOODS -->
+
+            <div class="map-side finished-goods">
+
+                <i class="fa-solid fa-cube"></i>
+
+                <strong>
+                    Finished
+                </strong>
+
+                <span>
+                    Goods Area
+                </span>
+
+                <i class="fa-solid fa-arrow-right side-arrow"></i>
+
+            </div>
+
+
+            <!-- FACTORY FLOOR -->
+
+            <div class="factory-floor">
+
+
+                <!-- ROW 1 -->
+
+                <div class="machine-row row-one">
+
+                    <div
+                        class="machine-unit disabled-machine"
+                        title="P-01 - Not available"
+                    >
+
+                        <div class="machine-symbol">
+                            <i class="fa-solid fa-industry"></i>
+                        </div>
+
+                        <div class="machine-name">
+                            P-01
+                        </div>
+
+                        <span class="machine-status running"></span>
+
+                    </div>
+
+
+                    <div
+                        class="machine-unit disabled-machine"
+                        title="P-02 - Not available"
+                    >
+
+                        <div class="machine-symbol">
+                            <i class="fa-solid fa-industry"></i>
+                        </div>
+
+                        <div class="machine-name">
+                            P-02
+                        </div>
+
+                        <span class="machine-status running"></span>
+
+                    </div>
+
+
+                    <div
+                        class="machine-unit disabled-machine"
+                        title="P-03 - Not available"
+                    >
+
+                        <div class="machine-symbol">
+                            <i class="fa-solid fa-industry"></i>
+                        </div>
+
+                        <div class="machine-name">
+                            P-03
+                        </div>
+
+                        <span class="machine-status running"></span>
+
+                    </div>
+
+
+                    <div
+                        class="machine-unit disabled-machine"
+                        title="P-04 - Not available"
+                    >
+
+                        <div class="machine-symbol">
+                            <i class="fa-solid fa-industry"></i>
+                        </div>
+
+                        <div class="machine-name">
+                            P-04
+                        </div>
+
+                        <span class="machine-status issue"></span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ROW 2 -->
+
+                <div class="machine-row row-two">
+
+                    <!-- FUNCTIONAL MACHINE -->
+
+                    <button
+                        type="button"
+                        class="machine-unit functional-machine"
+                        onclick="openMachinePopup()"
+                        title="Open P-05 / 400 Ton Press Machine"
+                    >
+
+                        <div class="machine-symbol">
+                            <i class="fa-solid fa-industry"></i>
+                        </div>
+
+                        <div class="machine-name">
+                            P-05
+                        </div>
+
+                        <span class="machine-status running"></span>
+
+                    </button>
+
+
+                    <div
+                        class="machine-unit disabled-machine"
+                        title="P-06 - Not available"
+                    >
+
+                        <div class="machine-symbol">
+                            <i class="fa-solid fa-industry"></i>
+                        </div>
+
+                        <div class="machine-name">
+                            P-06
+                        </div>
+
+                        <span class="machine-status running"></span>
+
+                    </div>
+
+
+                    <div
+                        class="machine-unit disabled-machine"
+                        title="P-07 - Not available"
+                    >
+
+                        <div class="machine-symbol">
+                            <i class="fa-solid fa-industry"></i>
+                        </div>
+
+                        <div class="machine-name">
+                            P-07
+                        </div>
+
+                        <span class="machine-status running"></span>
+
+                    </div>
+
+
+                    <div
+                        class="machine-unit disabled-machine"
+                        title="P-08 - Not available"
+                    >
+
+                        <div class="machine-symbol">
+                            <i class="fa-solid fa-industry"></i>
+                        </div>
+
+                        <div class="machine-name">
+                            P-08
+                        </div>
+
+                        <span class="machine-status running"></span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ROW 3 -->
+
+                <div class="machine-row row-three">
+
+                    <div
+                        class="machine-unit disabled-machine"
+                        title="P-09 - Not available"
+                    >
+
+                        <div class="machine-symbol">
+                            <i class="fa-solid fa-industry"></i>
+                        </div>
+
+                        <div class="machine-name">
+                            P-09
+                        </div>
+
+                        <span class="machine-status running"></span>
+
+                    </div>
+
+
+                    <div
+                        class="machine-unit disabled-machine"
+                        title="P-10 - Not available"
+                    >
+
+                        <div class="machine-symbol">
+                            <i class="fa-solid fa-industry"></i>
+                        </div>
+
+                        <div class="machine-name">
+                            P-10
+                        </div>
+
+                        <span class="machine-status running"></span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- MAIN ENTRANCE -->
+
+            <div class="main-entrance">
+
+                <i class="fa-solid fa-arrow-up"></i>
+
+                <span>
+                    Main Entrance
+                </span>
+
+            </div>
+
+
+            <!-- ZOOM -->
+
+            <div class="map-zoom">
+
+                <button>
+                    <i class="fa-solid fa-plus"></i>
                 </button>
-                <div class="machine-unit disabled-machine" title="P-06 - Not available"><div class="machine-symbol"><i class="fa-solid fa-industry"></i></div><div class="machine-name">P-06</div><span class="machine-status running"></span></div>
-                <div class="machine-unit disabled-machine" title="P-07 - Not available"><div class="machine-symbol"><i class="fa-solid fa-industry"></i></div><div class="machine-name">P-07</div><span class="machine-status running"></span></div>
-                <div class="machine-unit disabled-machine" title="P-08 - Not available"><div class="machine-symbol"><i class="fa-solid fa-industry"></i></div><div class="machine-name">P-08</div><span class="machine-status running"></span></div>
+
+                <button>
+                    <i class="fa-solid fa-minus"></i>
+                </button>
+
             </div>
 
-            <div class="machine-row row-three">
-                <div class="machine-unit disabled-machine" title="P-09 - Not available"><div class="machine-symbol"><i class="fa-solid fa-industry"></i></div><div class="machine-name">P-09</div><span class="machine-status running"></span></div>
-                <div class="machine-unit disabled-machine" title="P-10 - Not available"><div class="machine-symbol"><i class="fa-solid fa-industry"></i></div><div class="machine-name">P-10</div><span class="machine-status running"></span></div>
+
+            <!-- LEGEND -->
+
+            <div class="map-legend">
+
+                <span>
+                    <i class="legend-dot running-dot"></i>
+                    Running
+                </span>
+
+                <span>
+                    <i class="legend-dot issue-dot"></i>
+                    Issue
+                </span>
+
+                <span>
+                    <i class="legend-dot offline-dot"></i>
+                    Offline
+                </span>
+
             </div>
+
         </div>
 
-        <div class="main-entrance"><i class="fa-solid fa-arrow-up"></i><span>Main Entrance</span></div>
+    </section>
 
-        <div class="map-zoom">
-            <button><i class="fa-solid fa-plus"></i></button>
-            <button><i class="fa-solid fa-minus"></i></button>
-        </div>
 
-        <div class="map-legend">
-            <span><i class="legend-dot running-dot"></i>Running</span>
-            <span><i class="legend-dot issue-dot"></i>Issue</span>
-            <span><i class="legend-dot offline-dot"></i>Offline</span>
-        </div>
-    </div>
-</section>
+    <!-- =====================================================
+         MACHINE DASHBOARD
+         app.js renders this dynamically
+    ====================================================== -->
 
-<section id="machineDashboardPage" class="machine-dashboard-page"></section>
+    <section
+        id="machineDashboardPage"
+        class="machine-dashboard-page"
+    ></section>
 
 </main>
 
-<div class="machine-popup-overlay" id="machinePopup">
+
+<!-- =========================================================
+     MACHINE POPUP
+========================================================= -->
+
+<div
+    class="machine-popup-overlay"
+    id="machinePopup"
+>
+
     <div class="machine-popup">
-        <div class="popup-status"><span class="popup-running-dot"></span>RUNNING</div>
-        <button class="popup-close" onclick="closeMachinePopup()" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+
+
+        <div class="popup-status">
+
+            <span class="popup-running-dot"></span>
+
+            RUNNING
+
+        </div>
+
+
+        <button
+            class="popup-close"
+            onclick="closeMachinePopup()"
+            aria-label="Close"
+        >
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+
         <div class="popup-machine-main">
-            <div class="popup-machine-icon"><i class="fa-solid fa-industry"></i></div>
-            <div><h2>P-05</h2><p>400 Ton Mechanical Press</p></div>
+
+            <div class="popup-machine-icon">
+
+                <i class="fa-solid fa-industry"></i>
+
+            </div>
+
+
+            <div>
+
+                <h2>
+                    P-05
+                </h2>
+
+                <p>
+                    400 Ton Mechanical Press
+                </p>
+
+            </div>
+
         </div>
+
+
         <div class="popup-details">
-            <div class="popup-detail"><i class="fa-solid fa-user"></i><div><small>Operator</small><strong>To be updated</strong></div></div>
-            <div class="popup-detail"><i class="fa-solid fa-gauge-high"></i><div><small>Capacity</small><strong>400 Ton</strong></div></div>
-            <div class="popup-detail"><i class="fa-solid fa-gear"></i><div><small>Type</small><strong>Mechanical</strong></div></div>
-            <div class="popup-detail"><i class="fa-solid fa-industry"></i><div><small>Model</small><strong>SEW SXP-2-400</strong></div></div>
+
+
+            <div class="popup-detail">
+
+                <i class="fa-solid fa-user"></i>
+
+                <div>
+
+                    <small>
+                        Operator
+                    </small>
+
+                    <strong>
+                        To be updated
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="popup-detail">
+
+                <i class="fa-solid fa-gauge-high"></i>
+
+                <div>
+
+                    <small>
+                        Capacity
+                    </small>
+
+                    <strong>
+                        400 Ton
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="popup-detail">
+
+                <i class="fa-solid fa-gear"></i>
+
+                <div>
+
+                    <small>
+                        Type
+                    </small>
+
+                    <strong>
+                        Mechanical
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="popup-detail">
+
+                <i class="fa-solid fa-industry"></i>
+
+                <div>
+
+                    <small>
+                        Model
+                    </small>
+
+                    <strong>
+                        SEW SXP-2-400
+                    </strong>
+
+                </div>
+
+            </div>
+
         </div>
-        <button type="button" class="read-more-button" onclick="openMachineDashboard()"><span>Read More</span><i class="fa-solid fa-arrow-right"></i></button>
+
+
+        <button
+            type="button"
+            class="read-more-button"
+            onclick="openMachineDashboard()"
+        >
+
+            <span>
+                Read More
+            </span>
+
+            <i class="fa-solid fa-arrow-right"></i>
+
+        </button>
+
     </div>
+
 </div>
 
+
 <script src="app.js"></script>
+
 </body>
 </html>
