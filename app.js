@@ -60,7 +60,9 @@ function openMachinePopup() {
         return;
     }
 
-    popup.classList.add("show");
+    popup.classList.add(
+        "show"
+    );
 
 }
 
@@ -76,7 +78,9 @@ function closeMachinePopup() {
         return;
     }
 
-    popup.classList.remove("show");
+    popup.classList.remove(
+        "show"
+    );
 
 }
 
@@ -284,6 +288,10 @@ function renderMachineDashboard() {
         <div class="detail-hero">
 
 
+            <!-- =================================================
+                 HERO LEFT
+            ================================================== -->
+
             <div class="detail-hero-left">
 
 
@@ -354,7 +362,7 @@ function renderMachineDashboard() {
                         <div>
 
                             <strong>
-                                Press Shop
+                                Press Shop 56/11
                             </strong>
 
                             <span>
@@ -396,7 +404,10 @@ function renderMachineDashboard() {
             </div>
 
 
-            <!-- MACHINE IMAGE -->
+
+            <!-- =================================================
+                 MACHINE IMAGE
+            ================================================== -->
 
             <div class="detail-machine-image">
 
@@ -409,6 +420,147 @@ function renderMachineDashboard() {
 
 
             </div>
+
+
+
+            <!-- =================================================
+                 QUICK INFO
+            ================================================== -->
+
+            <section class="quick-info-card">
+
+
+                <div class="quick-info-header">
+
+
+                    <span class="quick-info-icon">
+
+                        <i class="fa-solid fa-circle-info"></i>
+
+                    </span>
+
+
+                    QUICK INFO
+
+
+                </div>
+
+
+                <div class="quick-info-body">
+
+
+                    <!-- Machine -->
+
+                    <div class="quick-info-row">
+
+
+                        <span class="quick-info-label">
+                            Machine
+                        </span>
+
+
+                        <strong>
+                            Pneumatic Press (21013)
+                        </strong>
+
+
+                    </div>
+
+
+                    <!-- Capacity -->
+
+                    <div class="quick-info-row">
+
+
+                        <span class="quick-info-label">
+                            Capacity
+                        </span>
+
+
+                        <strong>
+                            400 Ton
+                        </strong>
+
+
+                    </div>
+
+
+                    <!-- Make & Model -->
+
+                    <div class="quick-info-row">
+
+
+                        <span class="quick-info-label">
+                            Make & Model
+                        </span>
+
+
+                        <strong>
+                            SEW SXP-2-400
+                        </strong>
+
+
+                    </div>
+
+
+                    <!-- Manufacturer -->
+
+                    <div class="quick-info-row">
+
+
+                        <span class="quick-info-label">
+                            Manufacturer
+                        </span>
+
+
+                        <strong>
+                            SEW
+                        </strong>
+
+
+                    </div>
+
+
+                    <!-- Serial Number -->
+
+                    <div class="quick-info-row">
+
+
+                        <span class="quick-info-label">
+                            Serial No.
+                        </span>
+
+
+                        <strong>
+                            9473/09/2016
+                        </strong>
+
+
+                    </div>
+
+
+                    <!-- Location -->
+
+                    <div class="quick-info-row">
+
+
+                        <span class="quick-info-label">
+                            Location
+                        </span>
+
+
+                        <strong>
+                            Press Shop 56/11
+                        </strong>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
 
 
         </div>
@@ -911,6 +1063,7 @@ function renderMachineDashboard() {
                         </div>
 
 
+
                         <div class="spec-box">
 
 
@@ -940,6 +1093,7 @@ function renderMachineDashboard() {
                         </div>
 
 
+
                         <div class="spec-box">
 
 
@@ -967,6 +1121,7 @@ function renderMachineDashboard() {
 
 
                         </div>
+
 
 
                         <div class="spec-box">
@@ -1056,6 +1211,7 @@ function renderMachineDashboard() {
                         </button>
 
 
+
                         <button
                             class="document-btn"
                             onclick="documentNotAvailable('Hydraulic Circuit')"
@@ -1073,6 +1229,7 @@ function renderMachineDashboard() {
                             <i class="fa-solid fa-chevron-right"></i>
 
                         </button>
+
 
 
                         <button
@@ -1094,6 +1251,7 @@ function renderMachineDashboard() {
                         </button>
 
 
+
                         <button
                             class="document-btn"
                             onclick="documentNotAvailable('PM Checklist')"
@@ -1111,6 +1269,7 @@ function renderMachineDashboard() {
                             <i class="fa-solid fa-chevron-right"></i>
 
                         </button>
+
 
 
                         <button
@@ -1193,6 +1352,7 @@ function renderMachineDashboard() {
                     </div>
 
 
+
                     <div class="contact-row">
 
 
@@ -1216,6 +1376,7 @@ function renderMachineDashboard() {
 
 
                     </div>
+
 
 
                     <div class="contact-row">
@@ -1268,6 +1429,7 @@ function renderMachineDashboard() {
             class="qr-overlay"
             id="qrOverlay"
         >
+
 
             <div class="qr-modal">
 
@@ -1385,7 +1547,10 @@ function showMachineQR() {
         );
 
 
-    if (!overlay || !qrContainer) {
+    if (
+        !overlay ||
+        !qrContainer
+    ) {
 
         return;
 
@@ -1477,11 +1642,14 @@ function createQRCode(
         container,
         {
 
-            text: url,
+            text:
+                url,
 
-            width: 210,
+            width:
+                210,
 
-            height: 210,
+            height:
+                210,
 
             colorDark:
                 "#005C98",
@@ -1529,7 +1697,6 @@ document.addEventListener(
     "click",
     function(event) {
 
-
         const popup =
             document.getElementById(
                 "machinePopup"
@@ -1548,7 +1715,6 @@ document.addEventListener(
 
         }
 
-
     }
 );
 
@@ -1560,7 +1726,6 @@ document.addEventListener(
 document.addEventListener(
     "click",
     function(event) {
-
 
         const overlay =
             document.getElementById(
@@ -1580,7 +1745,6 @@ document.addEventListener(
 
         }
 
-
     }
 );
 
@@ -1593,7 +1757,6 @@ document.addEventListener(
     "keydown",
     function(event) {
 
-
         if (
             event.key ===
             "Escape"
@@ -1604,7 +1767,6 @@ document.addEventListener(
             hideMachineQR();
 
         }
-
 
     }
 );
